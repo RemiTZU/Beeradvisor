@@ -9,7 +9,8 @@ header {
     height: 50em;
 
 }
-#signin{
+
+#signin {
     position: absolute;
     top: 7px;
     left: 7px;
@@ -58,6 +59,7 @@ header li {
     right: 10%;
     align-items: center;
 }
+
 h2 {
     position: absolute;
     top: 1.45em;
