@@ -1,0 +1,72 @@
+body {
+    margin: 0;
+}
+
+header {
+
+    width: 100%;
+    height: 50em;
+
+}
+
+section {
+    height: 100vh0;
+}
+
+.sec1 {
+    background-color: rgb(0, 11, 118);
+    width: 100%;
+    height: 45em;
+    position: relative
+}
+
+.sec2 {
+    width: 100%;
+}
+
+svg {
+    position: absolute;
+    bottom: 0;
+}
+
+.input-contol {
+    position: relative;
+    left: 5em;
+    top: 7em;
+    display: flex;
+    align-items: center;
+    max-width: 450px;
+    background-color: aliceblue;
+    border-radius: 24px;
+    padding: 15px;
+
+}
+
+.input-contol img {
+    width: 1.25em;
+    position: relative;
+    top: 2px;
+}
+
+.input-contol input {
+    width: 100%;
+    font-size: 1.125em;
+    padding-left: 0.75em;
+    outline: 0;
+    border: 0;
+    color: black;
+    background-color: aliceblue;
+    font-family: "lato", sans-serif;
+}
+
+.beerglass{
+    
+    position: absolute;
+    top: 7em;
+    left: 100em;
+    height: 10em;
+    width: 6.5em;
+    border-bottom:solid 4px white ;
+    border-right:solid 4px white ;
+    border-left:solid 4px white ;
+}
