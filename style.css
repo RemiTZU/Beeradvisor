@@ -3,9 +3,79 @@ body {
 }
 
 header {
-
+    position: absolute;
+    top: 0;
     width: 100%;
     height: 50em;
+
+}
+#signin{
+    position: absolute;
+    top: 7px;
+    left: 7px;
+}
+
+header h1 {
+    font-family: Brandon Text, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen-Sans, Ubuntu, Cantarell, Helvetica Neue, sans-serif;
+    position: absolute;
+    top: 1em;
+    left: 2.5em;
+    color: #f1f1f1;
+    margin-bottom: 10px;
+    font-size: 91px;
+    line-height: 1.0625;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: none;
+}
+
+header ul {
+
+    position: absolute;
+    top: 18em;
+    left: 12em;
+    color: #f1f1f1;
+    text-decoration: none;
+
+
+}
+
+header li {
+    list-style-type: none;
+    margin-bottom: 0.5em;
+    font-size: 30px;
+    color: #f1f1f1;
+    font-family: Brandon Text, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen-Sans, Ubuntu, Cantarell, Helvetica Neue, sans-serif;
+    font-weight: 600;
+    justify-content: space-between;
+
+    text-decoration: none;
+}
+
+.monthbeer {
+    position: absolute;
+    top: 0em;
+    right: 10%;
+    align-items: center;
+}
+h2 {
+    position: absolute;
+    top: 1.45em;
+    right: 30%;
+    color: #cf060d;
+    margin-bottom: 10px;
+    font-size: 5em;
+    line-height: 1.0625;
+    font-weight: 600;
+    letter-spacing: -.01em;
+    text-transform: none;
+    font-family: Brandon Text, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen-Sans, Ubuntu, Cantarell, Helvetica Neue, sans-serif;
+    letter-spacing: 1px;
+}
+
+.monthbeer img {
+    position: relative;
+    top: 1em;
 
 }
 
@@ -14,9 +84,9 @@ section {
 }
 
 .sec1 {
-    background-color: rgb(0, 11, 118);
+    background-color: #041e32;
     width: 100%;
-    height: 45em;
+    height: 60em;
     position: relative
 }
 
@@ -32,7 +102,7 @@ svg {
 .input-contol {
     position: relative;
     left: 5em;
-    top: 7em;
+    top: 50em;
     display: flex;
     align-items: center;
     max-width: 450px;
@@ -57,16 +127,4 @@ svg {
     color: black;
     background-color: aliceblue;
     font-family: "lato", sans-serif;
-}
-
-.beerglass{
-    
-    position: absolute;
-    top: 7em;
-    left: 100em;
-    height: 10em;
-    width: 6.5em;
-    border-bottom:solid 4px white ;
-    border-right:solid 4px white ;
-    border-left:solid 4px white ;
 }
