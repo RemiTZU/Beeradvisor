@@ -1,5 +1,6 @@
 body {
     margin: 0;
+    overflow-x: hidden;
 }
 
 header {
@@ -19,7 +20,7 @@ header {
 header h1 {
     font-family: Brandon Text, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen-Sans, Ubuntu, Cantarell, Helvetica Neue, sans-serif;
     position: absolute;
-    top: 1em;
+    top: 0em;
     left: 2.5em;
     color: #f1f1f1;
     margin-bottom: 10px;
@@ -33,7 +34,7 @@ header h1 {
 header ul {
 
     position: absolute;
-    top: 18em;
+    top: 11em;
     left: 12em;
     color: #f1f1f1;
     text-decoration: none;
@@ -101,32 +102,51 @@ svg {
     bottom: 0;
 }
 
-.input-contol {
-    position: relative;
-    left: 5em;
-    top: 50em;
-    display: flex;
-    align-items: center;
-    max-width: 450px;
-    background-color: aliceblue;
-    border-radius: 24px;
-    padding: 15px;
-
+.sitenavigation {
+    top: 1500px;
+    justify-content: center;
+    position: absolute;
+    left: 40%;
 }
 
-.input-contol img {
-    width: 1.25em;
+.sitenavigation h2 {
     position: relative;
-    top: 2px;
+    left: 0;
+    color: #041e32;
+    font-family: Brandon Text, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen-Sans, Ubuntu, Cantarell, Helvetica Neue, sans-serif;
+    font-size: 50px;
+    font-style: bold;
 }
 
-.input-contol input {
-    width: 100%;
-    font-size: 1.125em;
-    padding-left: 0.75em;
-    outline: 0;
-    border: 0;
-    color: black;
-    background-color: aliceblue;
-    font-family: "lato", sans-serif;
+.grid {
+    position: relative;
+    top: 160px;
+    width: 1282.5px;
+    height: 635px;
+    display: grid;
+    grid-template:
+        "a a b" 1fr
+        "a a c" 297.5px/1fr 1fr;
+    grid-column-gap: 20px;
+    grid-row-gap: 20px;
+}
+
+
+.search {
+
+    width: 918px;
+    height: 598px;
+    background-image: url("C:/xampp/htdocs/Beeradvisor/searchlink.jpg");
+}
+
+.history {
+    width: 289px;
+    height: 289px;
+    background-image: url("C:/xampp/htdocs/Beeradvisor/history1.jpg");
+}
+
+.connection {
+    width: 289px;
+    height: 289px;
+    background-image: url("C:/xampp/htdocs/Beeradvisor/connection1.jpg");
 }
