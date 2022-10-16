@@ -22,32 +22,33 @@
     $f_name = $name = $birthday = "";
     if (!empty($_POST)) {
 
-        if (isset($_POST["f_name"], $_POST["name"], $_POST["birthdate"], $_POST["password"], $_POST["username"],$_POST["email"]) && !empty($_POST["f_name"]) && !empty($_POST["name"]) && !empty($_POST["username"]) && !empty($_POST["email"]) && !empty($_POST["birthday"]) && !empty($_POST["password"])) {
-      
+        if (isset($_POST["f_name"], $_POST["name"], $_POST["birthdate"], $_POST["password"], $_POST["username"], $_POST["email"]) && !empty($_POST["f_name"]) && !empty($_POST["name"]) && !empty($_POST["username"]) && !empty($_POST["email"]) && !empty($_POST["birthday"]) && !empty($_POST["password"])) {
+
             $f_name = strip_tags($_POST["f_name"]);
             $username = strip_tags($_POST["username"]);
             $name = $_POST["name"];
             $birthday = $_POST["birthdate"];
-    
+
             if (filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
                 die("l'adress email est pas bonne ");
             }
-    
+
             $pass = password_hash($_POST["password"], PASSWORD_ARGON2ID);
-    
+
             if (!test_entry($f_name)) {
                 die("entree de prénom incorrecte <br>");
             }
-    
+
             if (!test_entry($name)) {
                 die("entree de nom incorrecte <br> ");
             }
-    
+
             if (intval(date("Y")) - intval(substr($birthday, 0, 4)) <= 18) {
                 die("L'âge minimale de registration est 18 ans");
             }
-    
+
             require_once "includes/connect.php";
+
             $sql = "INSERT INTO 'user'('username','fisrt_name','name','mail_adress','birthday','password') VALUES (:pseudo,:familyname,:thename, :email,:birthday '$pass')";
             $query = $db->prepare($sql);
             $query->bindValue(":pseudo", $username, PDO::PARAM_STR);
@@ -74,8 +75,8 @@
     }
 
 
-    
-        // echo substr($birthday, 0,4);
+
+    // echo substr($birthday, 0,4);
     // echo "<br>";
     // echo date("Y");
     // echo "<br>";
