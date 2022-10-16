@@ -26,6 +26,11 @@
     } catch (PDOException $e) {
         die($e->getMessage());
     }
-    ?>
+
+    $sql = "SELECT * FROM 'user";
+    $requete = $db->query($sql);
+
+
+ ?>
 </body>
 </html>
