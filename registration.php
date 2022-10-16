@@ -12,51 +12,64 @@
         Information personnelles : <br>
         first_name : <input type="text" name="f_name" id="f_name"><br>
         name : <input type="text" name="name" id="name"><br>
-        mail adress : <input type="email" name="email" id="email"><br>
+        mail adress : <input type="text" name="email" id="email"><br>
         birthdate : <input type="date" name="birthdate" id="birthdate"><br>
         password : <input type="password" name="password" id="password"><br>
         repeat the password : <input type="password" name="pwd2" id="pwd2"><br>
         <input type="submit" value="Valider">
     </form>
     <?php
-    $f_name = $name = $birthday = "";
+include 'connect.php';
+global $db;
     if (!empty($_POST)) {
 
-        if (isset($_POST["f_name"], $_POST["name"], $_POST["birthdate"], $_POST["password"], $_POST["username"], $_POST["email"]) && !empty($_POST["f_name"]) && !empty($_POST["name"]) && !empty($_POST["username"]) && !empty($_POST["email"]) && !empty($_POST["birthday"]) && !empty($_POST["password"])) {
-
-            $f_name = strip_tags($_POST["f_name"]);
+        if (!empty($_POST["f_name"]) && !empty($_POST["name"]) && !empty($_POST["username"]) && !empty($_POST["email"]) && !empty($_POST["birthdate"]) && !empty($_POST["password"])) {
+           
+            $bool = True;
+            $f_name = $name = $birthdate = "";
+            $f_name = $_POST["f_name"];
             $username = strip_tags($_POST["username"]);
             $name = $_POST["name"];
-            $birthday = $_POST["birthdate"];
+            $birthdate = $_POST["birthdate"];
+            if (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
 
-            if (filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
                 die("l'adress email est pas bonne ");
+                $bool = False;
             }
 
             $pass = password_hash($_POST["password"], PASSWORD_ARGON2ID);
 
             if (!test_entry($f_name)) {
                 die("entree de prénom incorrecte <br>");
+                $bool = False;
             }
 
             if (!test_entry($name)) {
                 die("entree de nom incorrecte <br> ");
+                $bool = False;
             }
 
-            if (intval(date("Y")) - intval(substr($birthday, 0, 4)) <= 18) {
+            if (intval(date("Y")) - intval(substr($birthdate, 0, 4)) <= 18) {
                 die("L'âge minimale de registration est 18 ans");
+                $bool = False;
             }
 
-            require_once "includes/connect.php";
 
-            $sql = "INSERT INTO 'user'('username','fisrt_name','name','mail_adress','birthday','password') VALUES (:pseudo,:familyname,:thename, :email,:birthday '$pass')";
-            $query = $db->prepare($sql);
-            $query->bindValue(":pseudo", $username, PDO::PARAM_STR);
-            $query->bindValue(":familyname", $_POST["f_name"], PDO::PARAM_STR);
-            $query->bindValue(":thename", $_POST['name'], PDO::PARAM_STR);
-            $query->bindValue(":email", $_POST["email"], PDO::PARAM_STR);
-            $query->bindValue(":birthday", $_POST["birthday"], PDO::PARAM_STR);
-            $query->execute();
+            if ($bool) {
+                $sql = "INSERT INTO user(username,first_name,name,mail_adress,birthday,password) VALUES (?,?,?,?,?,?)";
+                $query = $db->prepare($sql);
+                // $query->bindValue(":pseudo", $username, PDO::PARAM_STR);
+                // $query->bindValue(":familyname", $f_name, PDO::PARAM_STR);
+                // $query->bindValue(":thename", $name, PDO::PARAM_STR);
+                // $query->bindValue(":email", $_POST["email"], PDO::PARAM_STR);
+                // $query->bindValue(":birthdate", $birthdate, PDO::PARAM_STR);
+                $query->execute(array($username,$f_name,$name,$_POST["email"],$birthdate,$pass));
+            }else{
+
+            }
+
+        } else {
+            die("le formulaire n'est pas complet");
         }
     }
 
