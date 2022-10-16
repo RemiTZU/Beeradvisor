@@ -42,7 +42,9 @@
                 $bool = $query->fetch();
                 if ($bool) {
                     $bool = False;
-                    die ("le mail existe deja");
+                    die("le mail existe deja");
+                } else {
+                    $bool = True;
                 }
             }
 
@@ -51,7 +53,9 @@
             $bool = $query->fetch();
             if ($bool) {
                 $bool = False;
-                die ("ce pseudo est deja utilisé existe deja");
+                die("ce pseudo est deja utilisé existe deja");
+            } else {
+                $bool = True;
             }
 
             $pass = password_hash($_POST["password"], PASSWORD_ARGON2ID);
@@ -77,7 +81,7 @@
                 $sql = "INSERT INTO user(username,f_name,name,email,birthdate,password) VALUES (?,?,?,?,?,?)";
                 $query = $db->prepare($sql);
                 $query->execute(array($username, $f_name, $name, $email, $birthdate, $pass));
-            } 
+            }
         } else {
             die("le formulaire n'est pas complet");
         }
@@ -96,15 +100,6 @@
         }
         return $test;
     }
-
-
-
-    // echo substr($birthday, 0,4);
-    // echo "<br>";
-    // echo date("Y");
-    // echo "<br>";
-    // echo date("Y") - substr($birthday, 0, 4);
-    // echo "<br>";
 
     ?>
 </body>
