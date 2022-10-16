@@ -19,25 +19,43 @@
         <input type="submit" value="Valider">
     </form>
     <?php
-include 'connect.php';
-global $db;
+    include 'connect.php';
+    global $db;
     if (!empty($_POST)) {
 
         if (!empty($_POST["f_name"]) && !empty($_POST["name"]) && !empty($_POST["username"]) && !empty($_POST["email"]) && !empty($_POST["birthdate"]) && !empty($_POST["password"])) {
-           
+
             $bool = True;
-            $f_name = $name = $birthdate = "";
+            $f_name = $email = $name = $birthdate = "";
             $f_name = $_POST["f_name"];
             $username = strip_tags($_POST["username"]);
             $name = $_POST["name"];
+            $email = $_POST["email"];
             $birthdate = $_POST["birthdate"];
-            if (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 
                 die("l'adress email est pas bonne ");
                 $bool = False;
+            } else {
+                $query = $db->prepare("SELECT * FROM user WHERE email=?");
+                $query->execute([$email]);
+                $bool = $query->fetch();
+                if ($bool) {
+                    $bool = False;
+                    die ("le mail existe deja");
+                }
+            }
+
+            $query = $db->prepare("SELECT * FROM user WHERE username=?");
+            $query->execute([$username]);
+            $bool = $query->fetch();
+            if ($bool) {
+                $bool = False;
+                die ("ce pseudo est deja utilisé existe deja");
             }
 
             $pass = password_hash($_POST["password"], PASSWORD_ARGON2ID);
+
 
             if (!test_entry($f_name)) {
                 die("entree de prénom incorrecte <br>");
@@ -56,18 +74,10 @@ global $db;
 
 
             if ($bool) {
-                $sql = "INSERT INTO user(username,first_name,name,mail_adress,birthday,password) VALUES (?,?,?,?,?,?)";
+                $sql = "INSERT INTO user(username,f_name,name,email,birthdate,password) VALUES (?,?,?,?,?,?)";
                 $query = $db->prepare($sql);
-                // $query->bindValue(":pseudo", $username, PDO::PARAM_STR);
-                // $query->bindValue(":familyname", $f_name, PDO::PARAM_STR);
-                // $query->bindValue(":thename", $name, PDO::PARAM_STR);
-                // $query->bindValue(":email", $_POST["email"], PDO::PARAM_STR);
-                // $query->bindValue(":birthdate", $birthdate, PDO::PARAM_STR);
-                $query->execute(array($username,$f_name,$name,$_POST["email"],$birthdate,$pass));
-            }else{
-
-            }
-
+                $query->execute(array($username, $f_name, $name, $email, $birthdate, $pass));
+            } 
         } else {
             die("le formulaire n'est pas complet");
         }
