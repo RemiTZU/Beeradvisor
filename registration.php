@@ -5,7 +5,7 @@
     <title>Beer Advisor | Registration</title>
 </head>
 <body>
-    <form method="POST" action="registration.php">
+<form method="POST" action="registration.php">
     username : <input type="text" name="username" id="username"><br>
     Information personnelles : <br>
     first_name : <input type="text" name="f_name" id="f_name"><br>
@@ -18,9 +18,12 @@
     </form>
 <?php
     $f_name = $name = $birthday = "";
-    $f_name = $_POST["f_name"];
+   if ( isset($_POST["f_name"], $_POST["name"], $_POST["birthdate"])) {
+    $f_name = $_POST["f_name"] ;
     $name = $_POST["name"];
     $birthday = $_POST["birthdate"];
+   }
+
 
     if (!test_entry($f_name)) {
         echo "entree de prénom incorrecte <br>";
@@ -28,15 +31,14 @@
     if (!test_entry($name)) {
         echo "entree de nom incorrecte <br> ";
     }
-    echo substr($birthday, 0,4);
-    echo "<br>";
-    echo date("Y");
-    echo "<br>";
+    // echo substr($birthday, 0,4);
+    // echo "<br>";
+    // echo date("Y");
+    // echo "<br>";
+    // echo date("Y") - substr($birthday, 0, 4);
+    // echo "<br>";
 
-    echo date("Y") - substr($birthday, 0, 4);
-    echo "<br>";
-
-    if (date("Y") - substr($birthday, 0, 4) <= 18) {
+    if (intval(date("Y")) - intval(substr($birthday, 0, 4)) <= 18) {
         echo "L'âge minimale de registration est 18 ans";
     }
 
@@ -52,6 +54,10 @@
         }
         return $test;
     }
+
+     if ( test_entry($f_name) and test_entry($name) and !(intval(date("Y")) - intval(substr($birthday, 0, 4)) <= 18) ) {
+        
+     }
     ?>
 </body>
 </html>

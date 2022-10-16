@@ -121,12 +121,12 @@ svg {
 .grid {
     position: relative;
     top: 160px;
-    width: 1282.5px;
+    width: 1300px;
     height: 635px;
     display: grid;
     grid-template:
         "a a b" 1fr
-        "a a c" 297.5px/1fr 1fr;
+        "a a c" 289px/1fr 1fr;
     grid-column-gap: 20px;
     grid-row-gap: 20px;
 }
@@ -136,13 +136,13 @@ svg {
 
     width: 918px;
     height: 598px;
-    background-image: url("C:/xampp/htdocs/Beeradvisor/searchlink.jpg");
+    background-image: url("searchlink.jpg");
 }
 
 .history {
     width: 289px;
     height: 289px;
-    background-image: url("C:/xampp/htdocs/Beeradvisor/history1.jpg");
+    background-image: url("history1.jpg");
 }
 
 .connection {
