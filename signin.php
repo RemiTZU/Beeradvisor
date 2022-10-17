@@ -22,7 +22,7 @@
     if (!empty($_POST)) {
 
         if (!empty($_POST["password"]) && !empty($_POST["email"])) {
-            $pass = $_POST["password"];
+            $pass = password_hash($_POST["password"], PASSWORD_ARGON2ID);
             $email = $_POST["email"];
 
             $query = $db->prepare("SELECT * FROM user WHERE email = ? AND password = ? ");
