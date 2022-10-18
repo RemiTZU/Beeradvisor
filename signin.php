@@ -22,17 +22,37 @@
     if (!empty($_POST)) {
 
         if (!empty($_POST["password"]) && !empty($_POST["email"])) {
-            $pass = password_hash($_POST["password"], PASSWORD_ARGON2ID);
+            $pass = $_POST["password"];
             $email = $_POST["email"];
-
-            $query = $db->prepare("SELECT * FROM user WHERE email = ? AND password = ? ");
-            $query->execute(array($email, $pass));
-            $bool = $query->fetch();
-            if ($bool) {
-                die("vous etes co");
-            } else {
-                die("aucun compte trouvé");
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                # code...
             }
+            
+
+            $query = $db->prepare("SELECT * FROM user WHERE email = ?");
+            $query->execute([$email]);
+            $user = $query->fetch();
+            if (!$user) {
+                echo"test";
+                die("user or password incorrect");
+            }
+            if (!password_verify($pass,$user["password"])) {
+                echo "hey";
+                die("user or password incorrect");
+            }  else{
+                die("vous êtes co");
+            }
+            // les verfications sont passées 
+            // on connecte l'utilisateur
+            // demarrage d'une session php
+            
+                session_start();
+
+
+
+
+
+
         } else {
             die("le formulaire n'est pas complet");
         }
