@@ -27,31 +27,34 @@
             if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 # code...
             }
-            
+
 
             $query = $db->prepare("SELECT * FROM user WHERE email = ?");
             $query->execute([$email]);
             $user = $query->fetch();
             if (!$user) {
-                echo"test";
-                die("user or password incorrect");
+                echo "test";
+                echo ("user or password incorrect");
             }
-            if (!password_verify($pass,$user["password"])) {
+            if (!password_verify($pass, $user["password"])) {
                 echo "hey";
-                die("user or password incorrect");
-            }  else{
-                die("vous êtes co");
-            }
-            // les verfications sont passées 
-            // on connecte l'utilisateur
-            // demarrage d'une session php
-            
+                echo ("user or password incorrect");
+            } else {
+
+                // les verfications sont passées 
+                // on connecte l'utilisateur
+                // demarrage d'une session php
+
+
                 session_start();
+                //stockage des données de l'utilisateur
 
-            $_SESSION["user"] = ["id" => $user[iduser], 
+                $_SESSION["user"] = ["email" => $user["email"], "username" => $user["username"]];
 
+                // on redirige vers une page profil
+                header("Location: profilsession.php");
 
-
+            }
         } else {
             die("le formulaire n'est pas complet");
         }

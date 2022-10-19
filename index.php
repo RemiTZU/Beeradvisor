@@ -1,3 +1,4 @@
+<<?php session_start() ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,7 +14,14 @@
     <header>
 
         <section class="sec1">
+            <?php
+            if (isset($)) {
+                # code...
+            }
+            ?>
+        <p>profil de <?= $_SESSION["user"]["username"] ?></p>
 
+<p> email : <?= $_SESSION["user"] ["email"]?></p>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
                 <path fill="#ffffff" fill-opacity="1"
                     d="M0,96L48,96C96,96,192,96,288,106.7C384,117,480,139,576,170.7C672,203,768,245,864,272C960,299,1056,309,1152,298.7C1248,288,1344,256,1392,240L1440,224L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
