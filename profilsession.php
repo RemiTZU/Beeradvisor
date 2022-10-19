@@ -8,6 +8,7 @@
     <title>Document</title>
 </head>
 <body>
+    
     <?php 
     echo "<p>profil de ". $_SESSION['user']['username']." </p>";
 
