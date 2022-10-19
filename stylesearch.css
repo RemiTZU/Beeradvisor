@@ -1,34 +1,13 @@
-body {
+* {
     margin: 0;
+    background: #123;
+    color: azure;
 }
 
-.input-contol {
-    border: solid #041e32;
-    position: relative;
-    left: 5em;
-    top: 50em;
-    display: flex;
-    align-items: center;
-    max-width: 700px;
-    background-color: aliceblue;
-    border-radius: 24px;
-    padding: 15px;
-
+#alcohol {
+    visibility: hidden;
 }
 
-.input-contol img {
-    width: 1.75em;
-    position: relative;
-    top: 2px;
-}
-
-.input-contol input {
-    width: 100%;
-    font-size: 1.125em;
-    padding-left: 0.75em;
-    outline: 0;
-    border: 0;
-    color: black;
-    background-color: aliceblue;
-    font-family: "lato", sans-serif;
+#IBU {
+    visibility: hidden;
 }
