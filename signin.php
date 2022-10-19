@@ -25,7 +25,7 @@
             $pass = $_POST["password"];
             $email = $_POST["email"];
             if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                # code...
+                die("l'adress n'est pas bonne ");
             }
 
 
@@ -52,7 +52,7 @@
                 $_SESSION["user"] = ["email" => $user["email"], "username" => $user["username"]];
 
                 // on redirige vers une page profil
-                header("Location: profilsession.php");
+                header("Location: index.php");
 
             }
         } else {

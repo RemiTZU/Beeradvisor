@@ -8,8 +8,16 @@
     <title>Document</title>
 </head>
 <body>
-    <p>profil de <?= $_SESSION["user"]["username"] ?></p>
+    <?php 
+    echo "<p>profil de ". $_SESSION['user']['username']." </p>";
 
-    <p> email : <?= $_SESSION["user"] ["email"]?></p>
+    echo "<p> email :". $_SESSION['user'] ['email']."</p>";
+
+    
+?>
+
+<a href='deconnexion.php'>deconnexion</a>
+<input type="checkbox" name="modification" id="modification">
+<script></script>
 </body>
 </html>

@@ -79,6 +79,19 @@
                 $sql = "INSERT INTO user(username,f_name,name,email,birthdate,password) VALUES (?,?,?,?,?,?)";
                 $query = $db->prepare($sql);
                 $query->execute(array($username, $f_name, $name, $email, $birthdate, $pass));
+
+                // les verfications sont passées 
+                // on connecte l'utilisateur
+                // demarrage d'une session php
+
+
+                session_start();
+                //stockage des données de l'utilisateur
+
+                $_SESSION["user"] = ["email" => $email, "username" => $username];
+
+                // on redirige vers une page profil
+                header("Location: index.php");
             }
         } else {
             die("le formulaire n'est pas complet");
