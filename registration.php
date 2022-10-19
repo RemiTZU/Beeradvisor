@@ -54,8 +54,6 @@
             if ($bool) {
                 $bool = False;
                 die("ce pseudo est deja utilisé existe deja");
-            } else {
-                $bool = True;
             }
 
             $pass = password_hash($_POST["password"], PASSWORD_ARGON2ID);

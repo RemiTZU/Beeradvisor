@@ -48,8 +48,7 @@
             
                 session_start();
 
-
-
+            $_SESSION["user"] = ["id" => $user[iduser], 
 
 
 

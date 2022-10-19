@@ -20,7 +20,7 @@
                 </path>
             </svg>
 
-           <a href="registration.php"><img id="signin" src="login.jpg"></a> 
+           <a href="registration.php"><img id="signin" src="IMG/login.jpg"></a> 
             <h1>BEERADVISOR.</h1>
             <ul>
                 <li>Informez-vous sur une grande variété de bière</li>
@@ -29,7 +29,7 @@
             <h2>Bière du mois</h2>
             <div class="monthbeer">
 
-                <img class="imageheader" src="heineken-original-bottle.jpg" alt="">
+                <img class="imageheader" src="IMG/heineken-original-bottle.jpg" alt="">
             </div>
 
         </section>
