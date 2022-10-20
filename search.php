@@ -51,7 +51,7 @@
             $data = $query->fetch();
         } else {
             $query = $db->prepare("SELECT * FROM beerinfo WHERE type=? ORDER BY abs(Degree-?)");
-            $res = $query->execute([$type], [$alcohol]);
+            $res = $query->execute(array($type,$alcohol));
             $data = $query->fetch();
         }
     } else {
