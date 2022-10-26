@@ -31,7 +31,7 @@
         <input type="submit" value="Valider">
     </form>
 
-    <?php
+     <?php
 
     include 'connect.php';
     global $db;
@@ -77,14 +77,14 @@
 
 
             if ($bool) {
-                $sql = "INSERT INTO user(username,email,password) VALUES (?,?,?)";
+                $sql = "INSERT INTO user(username,email,password) VALUES (?,?,?) where email = $_SESSION(['user'] ['email'])";
                 $query = $db->prepare($sql);
                 $query->execute(array($username,$email, $pass));
 
             
 
                 // on redirige vers une page deco
-                header("Location: deconnexion.php");
+             
             }else{
                 echo "probleme dans ce que tu as rentrés";
             }
@@ -93,7 +93,7 @@
         }
     }
 
-?>
+?> 
 
    
 

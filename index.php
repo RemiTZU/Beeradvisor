@@ -25,9 +25,10 @@
             <?php
 
             if (isset($_SESSION["user"])) {
-                echo" <a href='profilsession.php'><img id='signin' src='IMG/login.jpg'></a>";
+                echo" <a href='profilsession.php' id='signin'><img id='signin' src='IMG/login.jpg'></a>";
+                echo"<p id = 'puser'>". $_SESSION['user']['username']." </p>"; 
             }else{
-                echo" <a href='registration.php'><img id='signin' src='IMG/login.jpg'></a>";
+                echo" <a id ='signin' href='registration.php'><img id ='signin' src='IMG/login.jpg'></a>";
             }
            ?>
            
@@ -39,7 +40,7 @@
             <h2>Bière du mois</h2>
             <div class="monthbeer">
 
-                <img class="imageheader" src="IMG/heineken-original-bottle.jpg" alt="">
+                <img class="imageheader" src="IMG/33_BLEUE_GOUTTES_web-170x546.jpg" alt="">
             </div>
 
         </section>
