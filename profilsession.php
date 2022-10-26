@@ -21,7 +21,7 @@
 <a href='deconnexion.php'>deconnexion</a>
 <button  id="button" onchange="cb_clique(event)">Modifier</button>
 
-
+<p>test<p>
         <form action="profilsession" method="POST" name="modification" id="form">
 
         username : <input type="text" name="username" id="username" placeholder="new name"><br>
