@@ -41,11 +41,11 @@ CREATE TABLE `beerinfo` (
 --
 
 INSERT INTO `beerinfo` (`Id`, `Name`, `Degree`, `Type`, `Taste`, `Bitterness`) VALUES
-(1, 'Leffe', 5, 'pale Ale', 'Honey, fruity, plummy, bready, banana and clove yeast', '3/5'),
-(2, 'goudale', 7.2, 'lager', 'Sweet and fruity flavours, notes of yeast, sharp bitterness', '2/5'),
-(3, 'Chouffe', 8, 'Pale Ale', '	\r\nHoppy, fruity plum and citrus, spicy Belgian yeast', '3/5'),
-(4, 'Mont Blanc', 5.8, 'Pale Ale', 'Flavours of fruit and hops, light bitterness', '2/5'),
-(6, 'Heineken', 5, 'Lager Pale', 'light and simple', '2.5/5');
+(1, 'Leffe', 5, 'blonde', 'Honey, fruity, plummy, bready, banana and clove yeast', '3/5'),
+(2, 'goudale', 7.2, 'blonde', 'Sweet and fruity flavours, notes of yeast, sharp bitterness', '2/5'),
+(3, 'Chouffe', 8, 'ambrée', '	\r\nHoppy, fruity plum and citrus, spicy Belgian yeast', '3/5'),
+(4, 'Mont Blanc', 5.8, 'brune', 'Flavours of fruit and hops, light bitterness', '2/5'),
+(6, 'Heineken', 5, 'blonde', 'light and simple', '2.5/5');
 
 -- --------------------------------------------------------
 
