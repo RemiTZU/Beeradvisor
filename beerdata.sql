@@ -133,11 +133,6 @@ INSERT INTO `user` (`iduser`, `username`, `f_name`, `name`, `email`, `birthdate`
 ALTER TABLE `beerinfo`
   ADD PRIMARY KEY (`Id`);
 
---
--- Index pour la table `comment`
---
-ALTER TABLE `comment`
-  ADD PRIMARY KEY (`idcomment`);
 
 --
 -- Index pour la table `logins`
