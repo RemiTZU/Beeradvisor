@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `beerinfo` (
-  `Id` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
   `degree` float NOT NULL,
   `type` text NOT NULL,
@@ -126,7 +126,7 @@ CREATE TABLE `taste` (
 --
 
 CREATE TABLE `user` (
-  `iduser` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
   `username` varchar(100) NOT NULL,
   `f_name` varchar(100) NOT NULL,
   `name` varchar(100) NOT NULL,
