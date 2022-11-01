@@ -7,7 +7,7 @@
 </head>
 
 <body>
-    <form method="POST" action="registration.php">
+    <form method="POST" action="signup.php">
         username : <input type="text" name="username" id="username"><br>
         Information personnelles : <br>
         first_name : <input type="text" name="f_name" id="f_name"><br>
@@ -34,52 +34,70 @@
             $birthdate = $_POST["birthdate"];
             if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 
-                die("l'adress email est pas bonne ");
+                echo("l'adress email est pas bonne ");
                 $bool = False;
             } else {
-                $query = $db->prepare("SELECT * FROM user WHERE email=?");
+                $query = $db->prepare("SELECT * FROM logins WHERE email=?");
                 $query->execute([$email]);
                 $bool = $query->fetch();
                 if ($bool) {
                     $bool = False;
-                    die("le mail existe deja");
+                    echo("le mail existe deja");
                 } else {
                     $bool = True;
                 }
             }
 
-            $query = $db->prepare("SELECT * FROM user WHERE username=?");
+            $query = $db->prepare("SELECT * FROM logins WHERE username=?");
             $query->execute([$username]);
             $bool = $query->fetch();
             if ($bool) {
                 $bool = False;
-                die("ce pseudo est deja utilisé existe deja");
+                echo("ce pseudo est deja utilisé existe deja");
             }
 
             $pass = password_hash($_POST["password"], PASSWORD_ARGON2ID);
 
 
             if (!test_entry($f_name)) {
-                die("entree de prénom incorrecte <br>");
+                echo("entree de prénom incorrecte <br>");
                 $bool = False;
             }
 
             if (!test_entry($name)) {
-                die("entree de nom incorrecte <br> ");
+                echo("entree de nom incorrecte <br> ");
                 $bool = False;
             }
 
             if (intval(date("Y")) - intval(substr($birthdate, 0, 4)) <= 18) {
-                die("L'âge minimale de registration est 18 ans");
+                echo("L'âge minimale de registration est 18 ans");
                 $bool = False;
             }
 
 
+            $bool = True;
             if ($bool) {
-                $sql = "INSERT INTO user(username,f_name,name,email,birthdate,password) VALUES (?,?,?,?,?,?)";
+                echo"ok";
+                //ajout dans la table user
+                $sql = "INSERT INTO user(f_name,name,birthdate) VALUES (?,?,?)";
                 $query = $db->prepare($sql);
-                $query->execute(array($username, $f_name, $name, $email, $birthdate, $pass));
+                $query->execute(array($f_name, $name,$birthdate));
 
+                //ajout dans la table logins
+                $sql = "INSERT INTO logins(username,email,password) VALUES (?,?,?)";
+                $query = $db->prepare($sql);
+                $query->execute(array($username,$email,$pass));
+
+                if($pass == 'adminpassword'){
+                    $sql = "INSERT INTO logins(adminstate) VALUES (?)";
+                    $query = $db->prepare($sql);
+                    $query->execute(['True']);
+                }else{
+                    $sql = "INSERT INTO logins(adminstate) VALUES (?)";
+                    $query = $db->prepare($sql);
+                    $query->execute(['False']);
+                }
+                
                 // les verfications sont passées 
                 // on connecte l'utilisateur
                 // demarrage d'une session php
@@ -88,10 +106,12 @@
                 session_start();
                 //stockage des données de l'utilisateur
 
-                $_SESSION["user"] = ["email" => $email, "username" => $username];
+                $_SESSION["logins"] = ["email" => $email, "username" => $username,""];
 
                 // on redirige vers une page profil
                 header("Location: index.php");
+            }else{
+                echo "probleme";
             }
         } else {
             die("le formulaire n'est pas complet");

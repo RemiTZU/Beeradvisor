@@ -24,9 +24,9 @@
 
             <?php
 
-            if (isset($_SESSION["user"])) {
+            if (isset($_SESSION["logins"])) {
                 echo" <a href='profilsession.php' id='signin'><img id='signin' src='IMG/login.jpg'></a>";
-                echo"<p id = 'puser'>". $_SESSION['user']['username']." </p>"; 
+                echo"<p id = 'puser'>". $_SESSION['logins']['username']." </p>"; 
             }else{
                 echo" <a id ='signin' href='signin_signup.php'><img id ='signin' src='IMG/login.jpg'></a>";
             }
