@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : lun. 17 oct. 2022 à 11:33
+-- Généré le : mar. 01 nov. 2022 à 16:04
 -- Version du serveur : 10.4.24-MariaDB
 -- Version de PHP : 8.1.6
 
@@ -32,20 +32,58 @@ CREATE TABLE `beerinfo` (
   `Name` text NOT NULL,
   `Degree` float NOT NULL,
   `Type` text NOT NULL,
-  `Taste` text NOT NULL,
-  `Bitterness` text NOT NULL
+  `IBU` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `beerinfo`
 --
 
-INSERT INTO `beerinfo` (`Id`, `Name`, `Degree`, `Type`, `Taste`, `Bitterness`) VALUES
-(1, 'Leffe', 5, 'blonde', 'Honey, fruity, plummy, bready, banana and clove yeast', '3/5'),
-(2, 'goudale', 7.2, 'blonde', 'Sweet and fruity flavours, notes of yeast, sharp bitterness', '2/5'),
-(3, 'Chouffe', 8, 'ambrée', '	\r\nHoppy, fruity plum and citrus, spicy Belgian yeast', '3/5'),
-(4, 'Mont Blanc', 5.8, 'brune', 'Flavours of fruit and hops, light bitterness', '2/5'),
-(6, 'Heineken', 5, 'blonde', 'light and simple', '2.5/5');
+INSERT INTO `beerinfo` (`Id`, `Name`, `Degree`, `Type`, `IBU`) VALUES
+(1, 'Leffe', 5, 'blonde', 3),
+(2, 'goudale', 7.2, 'blonde', 5),
+(3, 'Chouffe', 8, 'ambrée', 2),
+(4, 'Mont Blanc', 5.8, 'brune', 3),
+(6, 'Heineken', 5, 'blonde', 4);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `comment`
+--
+
+CREATE TABLE `comment` (
+  `idcomment` int(11) NOT NULL,
+  `iduser` int(11) NOT NULL,
+  `idbeer` int(11) NOT NULL,
+  `content` text NOT NULL,
+  `note` int(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `follow`
+--
+
+CREATE TABLE `follow` (
+  `iduser` int(11) NOT NULL,
+  `iduserfollow` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `logins`
+--
+
+CREATE TABLE `logins` (
+  `idlogins` int(11) NOT NULL,
+  `username` text NOT NULL,
+  `email` text NOT NULL,
+  `password` text NOT NULL,
+  `iduser` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -70,7 +108,8 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`iduser`, `username`, `f_name`, `name`, `email`, `birthdate`, `password`, `datecreation`) VALUES
 (1, 'j', 'j', 'j', 'remi.bonnet@utbm.fr', '2003-11-18', '$argon2id$v=19$m=65536,t=4,p=1$TGxiSzlpeVJJbjd0WU9JQg$XfI4ZLD6NMJZ9W+NG0xdjQALc0uL0XkqUxRsvDjUZ5U', '2022-10-16'),
-(3, 'a', 'a', 'a', 'bonnetremi74@gmail.com', '2003-11-18', 'dd', '2022-10-16');
+(4, 'z', 'z', 'z', 'bonnetremi74@gmail.com', '2003-11-18', '$argon2id$v=19$m=65536,t=4,p=1$YjU1LnduSWhIUGRyOTJJVA$G1Tw628IlaIDze+cyUezns+M47q5js+zpWE1KIXZ53E', '2022-10-17'),
+(5, 'foef', 'eifj', 'epfij', 'jp.dasque@cegetel.net', '2000-05-18', '$argon2id$v=19$m=65536,t=4,p=1$Y0FhbTlURFJnUEdsandVRA$e9kv45ur444aXCS8s39saRppHRKUy8zgiuNZ8PD6B7E', '2022-10-18');
 
 --
 -- Index pour les tables déchargées
@@ -81,6 +120,18 @@ INSERT INTO `user` (`iduser`, `username`, `f_name`, `name`, `email`, `birthdate`
 --
 ALTER TABLE `beerinfo`
   ADD PRIMARY KEY (`Id`);
+
+--
+-- Index pour la table `comment`
+--
+ALTER TABLE `comment`
+  ADD PRIMARY KEY (`idcomment`);
+
+--
+-- Index pour la table `logins`
+--
+ALTER TABLE `logins`
+  ADD PRIMARY KEY (`idlogins`);
 
 --
 -- Index pour la table `user`
@@ -99,10 +150,22 @@ ALTER TABLE `beerinfo`
   MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
+-- AUTO_INCREMENT pour la table `comment`
+--
+ALTER TABLE `comment`
+  MODIFY `idcomment` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `logins`
+--
+ALTER TABLE `logins`
+  MODIFY `idlogins` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT pour la table `user`
 --
 ALTER TABLE `user`
-  MODIFY `iduser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `iduser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -75,7 +75,7 @@ h2 {
     position: absolute;
     top: 0.5em;
     right: 30%;
-    color: #FFD700 ;
+    color: #79ffe7 ;
     margin-bottom: 10px;
     font-size: 3em;
     line-height: 1.0625;
@@ -151,6 +151,7 @@ svg {
     width:597 px;
     height: 360px;
     background-image: url("IMG/searchlink1.jpg");
+    
 }
 
 .history {

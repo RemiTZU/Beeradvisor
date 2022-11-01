@@ -1,6 +1,7 @@
 <?php session_start() ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,21 +9,21 @@
     <title>Document</title>
     <script src="profilsession.js"></script>
 </head>
+
 <body>
-    
-    <?php 
-    echo "<p>profil de ". $_SESSION['user']['username']." </p>";
 
-    echo "<p> email :". $_SESSION['user'] ['email']."</p>";
+    <?php
+    echo "<p>profil de " . $_SESSION['user']['username'] . " </p>";
 
-    
-?>
+    echo "<p> email :" . $_SESSION['user']['email'] . "</p>";
 
-<a href='deconnexion.php'>deconnexion</a>
-<button  id="button" onchange="cb_clique(event)">Modifier</button>
 
-<p>test<p>
-        <form action="profilsession" method="POST" name="modification" id="form">
+    ?>
+
+    <a href='deconnexion.php'>deconnexion</a>
+    <button id="button" onchange="cb_clique(event)">Modifier</button>
+
+    <form action="profilsession" method="POST" name="modification" id="form">
 
         username : <input type="text" name="username" id="username" placeholder="new name"><br>
         Information personnelles : <br>
@@ -31,7 +32,7 @@
         <input type="submit" value="Valider">
     </form>
 
-     <?php
+    <?php
 
     include 'connect.php';
     global $db;
@@ -44,7 +45,7 @@
             $verif = True;
             $username = strip_tags($_POST["username"]);
             $email = $_POST["email"];
-        
+
             if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 
                 $bool = False;
@@ -52,7 +53,7 @@
                 $query = $db->prepare("SELECT * FROM user WHERE email=?");
                 $query->execute([$email]);
                 $bool = $query->fetch();
-                if ($email == $_SESSION['user'] ['email'] ) {
+                if ($email == $_SESSION['user']['email']) {
                     $verif = False;
                 }
                 if ($bool && $verif) {
@@ -64,7 +65,7 @@
             $query = $db->prepare("SELECT * FROM user WHERE username=?");
             $query->execute([$username]);
             $bool = $query->fetch();
-            if($username == $_SESSION['user']['username']){
+            if ($username == $_SESSION['user']['username']) {
                 $verif = False;
             }
             if ($bool && $verif) {
@@ -77,15 +78,16 @@
 
 
             if ($bool) {
-                $sql = "INSERT INTO user(username,email,password) VALUES (?,?,?) where email = $_SESSION(['user'] ['email'])";
+                $sql = "UPDATE user(username,email,password) VALUES (?,?,?) where email = $_SESSION(['user'] ['email'])";
                 $query = $db->prepare($sql);
-                $query->execute(array($username,$email, $pass));
+                $query->execute(array($username, $email, $pass));
 
-            
+
 
                 // on redirige vers une page deco
-             
-            }else{
+
+
+            } else {
                 echo "probleme dans ce que tu as rentrés";
             }
         } else {
@@ -93,10 +95,11 @@
         }
     }
 
-?> 
+    ?>
 
-   
 
-<script></script>
+
+    <script></script>
 </body>
+
 </html>
