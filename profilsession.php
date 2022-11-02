@@ -80,9 +80,9 @@
                 SET username = ?,
                 email = ?,
                 password = ?
-                where email =" . $_SESSION['logins']['email'] . " ";
+                where email = ? ";
                 $query = $db->prepare($sql);
-                $query->execute(array($username, $email, $pass));
+                $query->execute(array($username, $email, $pass, $_SESSION['logins']['email'] ));
 
 
 

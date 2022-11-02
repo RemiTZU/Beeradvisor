@@ -39,7 +39,7 @@
             } else {
                 $query = $db->prepare("SELECT * FROM logins WHERE email=?");
                 $query->execute([$email]);
-                $bool = $query->fetch();
+                $bool = $query->fetch(); 
                 if ($bool) {
                     $bool = False;
                     echo("le mail existe deja");
@@ -54,11 +54,13 @@
             if ($bool) {
                 $bool = False;
                 echo("ce pseudo est deja utilisé existe deja");
+            }else{
+                $bool = True;
             }
 
             $pass = password_hash($_POST["password"], PASSWORD_ARGON2ID);
 
-
+        /*
             if (!test_entry($f_name)) {
                 echo("entree de prénom incorrecte <br>");
                 $bool = False;
@@ -68,14 +70,13 @@
                 echo("entree de nom incorrecte <br> ");
                 $bool = False;
             }
-
+*/
             if (intval(date("Y")) - intval(substr($birthdate, 0, 4)) <= 18) {
                 echo("L'âge minimale de registration est 18 ans");
                 $bool = False;
             }
 
 
-            $bool = True;
             if ($bool) {
                 echo"ok";
                 //ajout dans la table user
@@ -118,7 +119,7 @@
         }
     }
 
-
+/*
     function test_entry($entry)
     {
         $test = true;
@@ -131,7 +132,7 @@
         }
         return $test;
     }
-
+*/
     ?>
 </body>
 

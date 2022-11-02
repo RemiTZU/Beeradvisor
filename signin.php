@@ -25,35 +25,36 @@
             $pass = $_POST["password"];
             $email = $_POST["email"];
             if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                die("l'adress n'est pas bonne ");
+                echo ("l'adress n'est pas bonne ");
             }
 
 
-            $query = $db->prepare("SELECT * FROM user WHERE email = ?");
+            $query = $db->prepare("SELECT * FROM logins WHERE email = ?");
             $query->execute([$email]);
             $user = $query->fetch();
             if (!$user) {
                 echo "test";
                 echo ("user or password incorrect");
-            }
-            if (!password_verify($pass, $user["password"])) {
-                echo "hey";
-                echo ("user or password incorrect");
             } else {
 
-                // les verfications sont passées 
-                // on connecte l'utilisateur
-                // demarrage d'une session php
+                if (!password_verify($pass, $user["password"])) {
+                    echo "hey";
+                    echo ("user or password incorrect");
+                } else {
+
+                    // les verfications sont passées 
+                    // on connecte l'utilisateur
+                    // demarrage d'une session php
 
 
-                session_start();
-                //stockage des données de l'utilisateur
+                    session_start();
+                    //stockage des données de l'utilisateur
 
-                $_SESSION["user"] = ["email" => $user["email"], "username" => $user["username"]];
+                    $_SESSION["logins"] = ["email" => $user["email"], "username" => $user["username"]];
 
-                // on redirige vers une page profil
-                header("Location: index.php");
-
+                    // on redirige vers une page profil
+                    header("Location: index.php");
+                }
             }
         } else {
             die("le formulaire n'est pas complet");
