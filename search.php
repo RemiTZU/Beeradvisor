@@ -45,45 +45,51 @@
         $type = $_POST["category"];
         $alcohol = $_POST["alcohol"];
         $IBU = $_POST["IBU"];
-        if ($_POST["category"] == "tout") {
-            $query = $db->prepare("SELECT * FROM beerinfo ORDER BY abs(Degree-?)");
-            $res = $query->execute([$alcohol]);
-            $data = $query->fetch();
-        } else {
-            $query = $db->prepare("SELECT * FROM beerinfo WHERE type=? ORDER BY abs(Degree-?)");
-            $res = $query->execute(array($type,$alcohol));
-            $data = $query->fetch();
+
+        $req = "SELECT * FROM beerinfo";
+        $where = "";
+        $order = "";
+        $array = array();
+        if ($_POST["category"] != "tout") {
+            $req = $req . " WHERE type=? ";
+            $array = array_merge($array, array($type));
         }
+        if (isset($_POST["bool_alcohol"])) {
+            $order = $order . " abs(degree-?)/".ecart_type("degree", "beerinfo", $db)." + ";
+            $array = array_merge($array, array($alcohol));
+        }
+        if (isset($_POST["bool_IBU"])) {
+            $order = $order . " abs(IBU-?)/".ecart_type("IBU", "beerinfo", $db)." + ";
+            $array = array_merge($array, array($IBU));
+        }
+        if ($order != "") {
+            $order = " ORDER BY (" . $order . " 0)";
+        }
+        echo $req . $order . " comportant comme argument : " . json_encode($array) . "<br>";
+        
+        $query = $db->prepare($req . $order);
+        $res = $query->execute($array);
+        $data = $query->fetch();
+
     } else {
         $query = $db->prepare("SELECT * FROM beerinfo");
         $res = $query->execute();
         $data = $query->fetch();
     }
     while($data != null) {
-        echo $data['Name'] . "<br>";
+        $nom = $data['name'];
+        echo "<a href='biere.php?biere=$nom'>" . $nom . "</a><br>";
         $data = $query->fetch();
     }
 
-        ?>
-    <!--<script>
-        document.getElementById("search").onkeypress = function(e) {
-            // Récupère la valeur du champ texte
-            let text = document.getElementById("search").innerHTML;
-            console.log(text);
+    function ecart_type($value, $table, $db)
+    {
+        $query = $db->prepare("SELECT std($value) AS ecart_type FROM $table");
+        $res = $query->execute();
+        $data = $query->fetch();
+        return $data["ecart_type"];
+    }
 
-            // On prépare une requête à envoyer à PHP
-            //var oReq = new XMLHttpRequest();
-            //oReq.onreadystatechange = function () {
-            //    if (oReq.readyState === 4 && oReq.status === 200) {
-            //        // On traite le résultat de la requête
-            //        var res = JSON.parse(oReq.response);
-            //        console.log(res);
-            //    }
-            //};
-            //// On envoie la requête à PHP
-            //oReq.open("get", "mapage.php", true);
-            //oReq.send();
-        };
-    </script>-->
+    ?>
 </body>
 </html>
