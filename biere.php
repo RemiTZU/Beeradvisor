@@ -27,7 +27,7 @@
     echo "Note : " . $rating["rating"];
 
     // Affiche les commentaires
-    $query = $db->prepare("SELECT * FROM comment INNER JOIN user ON comment.id_user=user.id WHERE id_biere=?");
+    $query = $db->prepare("SELECT * FROM comment INNER JOIN user ON user.id=comment.id_user WHERE id_biere=?");
     $res = $query->execute([$data["id"]]);
     $comments = $query->fetch();
 
