@@ -7,6 +7,13 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <?php
+session_start();
+                //stockage des données de l'utilisateur
+
+                $_SESSION["logins"] = ["email" => $email, "username" => $username,""];
+
+                
+                ?>
 </body>
 </html>

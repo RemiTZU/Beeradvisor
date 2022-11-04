@@ -57,7 +57,15 @@
             }else{
                 $bool = True;
             }
-
+            
+            $pass = $_POST["password"];
+            
+            if($pass == "adminpassword"){
+                $adminstate = True;
+            }else{
+                $adminstate =false;
+            }
+            
             $pass = password_hash($_POST["password"], PASSWORD_ARGON2ID);
 
         /*
@@ -85,20 +93,12 @@
                 $query->execute(array($f_name, $name,$birthdate));
 
                 //ajout dans la table logins
-                $sql = "INSERT INTO logins(username,email,password) VALUES (?,?,?)";
-                $query = $db->prepare($sql);
-                $query->execute(array($username,$email,$pass));
 
-                if($pass == 'adminpassword'){
-                    $sql = "INSERT INTO logins(adminstate) VALUES (?)";
-                    $query = $db->prepare($sql);
-                    $query->execute(['True']);
-                }else{
-                    $sql = "INSERT INTO logins(adminstate) VALUES (?)";
-                    $query = $db->prepare($sql);
-                    $query->execute(['False']);
-                }
-                
+
+
+                $sql = "INSERT INTO logins(username,email,password,adminstate) VALUES (?,?,?,?)";
+                $query = $db->prepare($sql);
+                $query->execute(array($username,$email,$pass,$adminstate));
                 // les verfications sont passées 
                 // on connecte l'utilisateur
                 // demarrage d'une session php
