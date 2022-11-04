@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<?php session_start() ?><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -7,13 +7,13 @@
     <title>Document</title>
 </head>
 <body>
-    <?php
-session_start();
-                //stockage des données de l'utilisateur
+<?php
+    $idprofil = 
+    echo "<p>profil de " .  . " </p>";
 
-                $_SESSION["logins"] = ["email" => $email, "username" => $username,""];
+    echo "<p> email :" .  . "</p>";
 
-                
-                ?>
+
+    ?>
 </body>
 </html>

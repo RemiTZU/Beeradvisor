@@ -3,18 +3,28 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="signin.css" />
 </head>
 
 <body>
-
-    <form method="POST" action="signin.php" class="signin">
-        <label for="pass"> PassWord </label>
-        <input type="password" name="password" id="password"><br>
-        <label for="email">E-mail</label>
-        <input type="text" name="email" id="email"><br>
-        <input type="submit" value="Validate">
-    </form>
+<div class="login-box">
+  <h2>Login</h2>
+  <form method="POST" action="signin.php">
+    <div class="user-box">
+      <input type="text" name="email" required="">
+      <label>E-mail</label>
+    </div>
+    <div class="user-box">
+      <input type="password" name="password" required="">
+      <label>Password</label>
+    </div>
+    <input type="submit" id="join-btn" name="join" alt="Join" value="Join">
+    
+  </form>
+</div>
     <?php
     include 'connect.php';
     global $db;
@@ -50,14 +60,14 @@
                     session_start();
                     //stockage des données de l'utilisateur
 
-                    $_SESSION["logins"] = ["email" => $user["email"], "username" => $user["username"]];
+                    $_SESSION["logins"] = ["email" => $user["email"], "username" => $user["username"], "idlogins" => $user['idlogins']];
 
                     // on redirige vers une page profil
                     header("Location: index.php");
                 }
             }
         } else {
-            die("le formulaire n'est pas complet");
+            echo("le formulaire n'est pas complet");
         }
     }
 

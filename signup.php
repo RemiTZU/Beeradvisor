@@ -3,21 +3,48 @@
 <html lang="fr">
 
 <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="signup.css" />
     <title>Beer Advisor | Registration</title>
 </head>
 
 <body>
-    <form method="POST" action="signup.php">
-        username : <input type="text" name="username" id="username"><br>
-        Information personnelles : <br>
-        first_name : <input type="text" name="f_name" id="f_name"><br>
-        name : <input type="text" name="name" id="name"><br>
-        mail adress : <input type="text" name="email" id="email"><br>
-        birthdate : <input type="date" name="birthdate" id="birthdate"><br>
-        password : <input type="password" name="password" id="password"><br>
-        repeat the password : <input type="password" name="pwd2" id="pwd2"><br>
-        <input type="submit" value="Valider">
-    </form>
+    <div class="login-box">
+        <h2>Sign up</h2>
+        <form method="POST" action="signup.php">
+            <div class="user-box">
+                <input type="text" name="username" required="">
+                <label>Username</label>
+            </div>
+            <div class="user-box">
+                <input type="text" name="f_name" required="">
+                <label>First Name</label>
+            </div>
+            <div class="user-box">
+                <input type="text" name="name" required="">
+                <label>Name</label>
+            </div>
+            <div class="user-box">
+                <input type="text" name="email" required="">
+                <label>E-mail</label>
+            </div>
+            <div class="user-box">
+                <input type="date" name="birthdate" id="birthdate">
+            </div>
+            <div class="user-box">
+                <input type="password" name="password" required="">
+                <label>Password</label>
+            </div>
+            <div class="user-box">
+                <input type="password" name="pwd2" required="">
+                <label>Repeat Password</label>
+            </div>
+            <input type="submit" id="join-btn" name="join" alt="Join" value="Join">
+        </form>
+    </div>
     <?php
     include 'connect.php';
     global $db;
@@ -34,15 +61,15 @@
             $birthdate = $_POST["birthdate"];
             if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 
-                echo("l'adress email est pas bonne ");
+                echo ("l'adress email est pas bonne ");
                 $bool = False;
             } else {
                 $query = $db->prepare("SELECT * FROM logins WHERE email=?");
                 $query->execute([$email]);
-                $bool = $query->fetch(); 
+                $bool = $query->fetch();
                 if ($bool) {
                     $bool = False;
-                    echo("le mail existe deja");
+                    echo ("le mail existe deja");
                 } else {
                     $bool = True;
                 }
@@ -53,22 +80,22 @@
             $bool = $query->fetch();
             if ($bool) {
                 $bool = False;
-                echo("ce pseudo est deja utilisé existe deja");
-            }else{
+                echo ("ce pseudo est deja utilisé existe deja");
+            } else {
                 $bool = True;
             }
-            
+
             $pass = $_POST["password"];
-            
-            if($pass == "adminpassword"){
+
+            if ($pass == "adminpassword") {
                 $adminstate = True;
-            }else{
-                $adminstate =false;
+            } else {
+                $adminstate = false;
             }
-            
+
             $pass = password_hash($_POST["password"], PASSWORD_ARGON2ID);
 
-        /*
+            /*
             if (!test_entry($f_name)) {
                 echo("entree de prénom incorrecte <br>");
                 $bool = False;
@@ -80,17 +107,17 @@
             }
 */
             if (intval(date("Y")) - intval(substr($birthdate, 0, 4)) <= 18) {
-                echo("L'âge minimale de registration est 18 ans");
+                echo ("L'âge minimale de registration est 18 ans");
                 $bool = False;
             }
 
 
             if ($bool) {
-                echo"ok";
+                echo "ok";
                 //ajout dans la table user
                 $sql = "INSERT INTO user(f_name,name,birthdate) VALUES (?,?,?)";
                 $query = $db->prepare($sql);
-                $query->execute(array($f_name, $name,$birthdate));
+                $query->execute(array($f_name, $name, $birthdate));
 
                 //ajout dans la table logins
 
@@ -98,7 +125,7 @@
 
                 $sql = "INSERT INTO logins(username,email,password,adminstate) VALUES (?,?,?,?)";
                 $query = $db->prepare($sql);
-                $query->execute(array($username,$email,$pass,$adminstate));
+                $query->execute(array($username, $email, $pass, $adminstate));
                 // les verfications sont passées 
                 // on connecte l'utilisateur
                 // demarrage d'une session php
@@ -107,11 +134,11 @@
                 session_start();
                 //stockage des données de l'utilisateur
 
-                $_SESSION["logins"] = ["email" => $email, "username" => $username,""];
+                $_SESSION["logins"] = ["email" => $email, "username" => $username, ""];
 
                 // on redirige vers une page profil
                 header("Location: index.php");
-            }else{
+            } else {
                 echo "probleme";
             }
         } else {
@@ -119,7 +146,7 @@
         }
     }
 
-/*
+    /*
     function test_entry($entry)
     {
         $test = true;

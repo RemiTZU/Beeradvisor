@@ -27,11 +27,14 @@
     echo "Note : " . $rating["rating"];
 
     // Affiche les commentaires
-    $query = $db->prepare("SELECT * FROM comment INNER JOIN user ON user.id=comment.id_user WHERE id_biere=?");
+    $query = $db->prepare("SELECT * FROM comment INNER JOIN user ON user.iduser=comment.id_user WHERE id_biere=?");
     $res = $query->execute([$data["id"]]);
     $comments = $query->fetch();
 
     while($comments != null) {
+        // $username = $comments['username'];
+        // echo "<br>Utilisateur : " . $username . " - ";
+        // echo "<a href='profil.php?username=$username?id=$comments[id_user]'>" . $username .  " : </a>";
         echo "<br>Utilisateur : " . $comments['username'] . " - ";
         echo "Note : " . $comments['rating'] . " - ";
         echo "Commentaire : " . $comments['description'];
