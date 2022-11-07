@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="stylesearch.css">
     <script src="search.js"></script>
 </head>
+
 <body>
     <h1>BeerAdvisor Search</h1>
     <div class="input-contol">
@@ -23,7 +24,7 @@
                 <option value="brune">brune</option>
                 <option value="ambrée">ambrée</option>
             </select> <br>
-            Alcohol level : 
+            Alcohol level :
             <input type="checkbox" class="alcohol" name="bool_alcohol" id="bool_alcohol" onchange="cb_clique(event)">
             <input type="number" name="alcohol" id="alcohol" min="0" max="100" value="7"> <br>
             IBU :
@@ -31,13 +32,13 @@
             <input type="number" name="IBU" id="IBU" min="0" max="100" value="30"> <br>
             Goûts :
             <select name="taste" id="taste" onchange="taste_select()">
-                <option value="reset">qu'importe</option>                
+                <option value="reset">qu'importe</option>
                 <option value="cannelle">cannelle</option>
                 <option value="agrume">agrume</option>
                 <option value="vanille">vanille</option>
                 <option value="fruits rouges">fruits rouges</option>
             </select>
-            -> 
+            ->
             <input type="text" name="taste_txt" id="taste_txt" readonly> <br>
 
             <script>
@@ -56,8 +57,8 @@
             <input type="submit" value="valider">
         </form>
 
-        </div>
-        
+    </div>
+
     <?php
 
     include 'connect.php';
@@ -71,7 +72,7 @@
 
         $list_taste = explode(";", $_POST["taste_txt"]);
 
-        echo json_encode($list_taste). "<br>";
+        echo json_encode($list_taste) . "<br>";
 
         $taste = $_POST["taste"];
 
@@ -89,32 +90,31 @@
         while ($list_taste[$i]) {
             $where = $where . " AND name IN (SELECT beerinfo.name FROM beer_taste INNER JOIN beerinfo ON beer_taste.id_beer = beerinfo.id INNER JOIN taste ON beer_taste.taste_name = taste.name WHERE taste.name = ?)";
             $array = array_merge($array, array($list_taste[$i]));
-            $i ++;
+            $i++;
         }
 
         if (isset($_POST["bool_alcohol"])) {
-            $order = $order . " abs(degree-?)/".ecart_type("degree", "beerinfo", $db)." + ";
+            $order = $order . " abs(degree-?)/" . ecart_type("degree", "beerinfo", $db) . " + ";
             $array = array_merge($array, array($alcohol));
         }
         if (isset($_POST["bool_IBU"])) {
-            $order = $order . " abs(IBU-?)/".ecart_type("IBU", "beerinfo", $db)." + ";
+            $order = $order . " abs(IBU-?)/" . ecart_type("IBU", "beerinfo", $db) . " + ";
             $array = array_merge($array, array($IBU));
         }
         if ($order != "") {
             $order = " ORDER BY (" . $order . " 0)";
         }
         echo $req . $where . $order . " comportant comme argument : " . json_encode($array) . "<br>";
-        
+
         $query = $db->prepare($req . $where . $order);
         $res = $query->execute($array);
         $data = $query->fetch();
-
     } else {
         $query = $db->prepare("SELECT * FROM beerinfo");
         $res = $query->execute();
         $data = $query->fetch();
     }
-    while($data != null) {
+    while ($data != null) {
         $nom = $data['name'];
         echo "<a href='biere.php?biere=$nom'>" . $nom . "</a><br>";
         $data = $query->fetch();
@@ -130,4 +130,5 @@
 
     ?>
 </body>
+
 </html>

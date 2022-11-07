@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : mar. 01 nov. 2022 à 20:30
--- Version du serveur : 10.4.25-MariaDB
--- Version de PHP : 8.1.10
+-- Généré le : lun. 07 nov. 2022 à 17:41
+-- Version du serveur : 10.4.24-MariaDB
+-- Version de PHP : 8.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -39,7 +39,7 @@ CREATE TABLE `beerinfo` (
 -- Déchargement des données de la table `beerinfo`
 --
 
-INSERT INTO `beerinfo` (`Id`, `name`, `degree`, `type`, `IBU`) VALUES
+INSERT INTO `beerinfo` (`id`, `name`, `degree`, `type`, `IBU`) VALUES
 (1, 'Leffe', 5, 'blonde', 63),
 (2, 'goudale', 7.2, 'blonde', 42),
 (3, 'Chouffe', 8, 'ambrée', 57),
@@ -90,7 +90,8 @@ INSERT INTO `comment` (`id_biere`, `id_user`, `rating`, `picture`, `description`
 --
 
 CREATE TABLE `follow` (
-  `iduser` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
+  `idfollower` int(11) NOT NULL,
   `iduserfollow` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -102,11 +103,19 @@ CREATE TABLE `follow` (
 
 CREATE TABLE `logins` (
   `idlogins` int(11) NOT NULL,
-  `username` varchar(100) NOT NULL,
-  `email` varchar(200) NOT NULL,
+  `username` text NOT NULL,
+  `email` text NOT NULL,
   `password` text NOT NULL,
-  `iduser` int(11) NOT NULL
+  `adminstate` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Déchargement des données de la table `logins`
+--
+
+INSERT INTO `logins` (`idlogins`, `username`, `email`, `password`, `adminstate`) VALUES
+(8, 'ee', 'remi.bonnet@utbm.fr', '$argon2id$v=19$m=65536,t=4,p=1$TnpqZ2ZDSEd0Q0N0d0Uvaw$Os7oTYjv+n2ZpmLht4UJyikV1QVGLea+Z/bqv1qWKk0', 0),
+(9, 'admin', 'bonnetremi74@gmail.com', '$argon2id$v=19$m=65536,t=4,p=1$bU1wdFJWd09SVmpiQ3dPaQ$ZG0wX8rsgKGZzt0cPWwuXBhTdrChIk7yZbKjGSN56kE', 1);
 
 -- --------------------------------------------------------
 
@@ -126,24 +135,23 @@ CREATE TABLE `taste` (
 --
 
 CREATE TABLE `user` (
-  `id` int(11) NOT NULL,
-  `username` varchar(100) NOT NULL,
-  `f_name` varchar(100) NOT NULL,
-  `name` varchar(100) NOT NULL,
-  `email` varchar(200) NOT NULL,
-  `birthdate` date NOT NULL,
-  `password` text NOT NULL,
-  `datecreation` date NOT NULL DEFAULT current_timestamp()
+  `iduser` int(11) NOT NULL,
+  `f_name` text NOT NULL,
+  `name` text NOT NULL,
+  `birthdate` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='table information utilisateur';
 
 --
 -- Déchargement des données de la table `user`
 --
 
-INSERT INTO `user` (`iduser`, `username`, `f_name`, `name`, `email`, `birthdate`, `password`, `datecreation`) VALUES
-(1, 'j', 'j', 'j', 'remi.bonnet@utbm.fr', '2003-11-18', '$argon2id$v=19$m=65536,t=4,p=1$TGxiSzlpeVJJbjd0WU9JQg$XfI4ZLD6NMJZ9W+NG0xdjQALc0uL0XkqUxRsvDjUZ5U', '2022-10-16'),
-(4, 'z', 'z', 'z', 'bonnetremi74@gmail.com', '2003-11-18', '$argon2id$v=19$m=65536,t=4,p=1$YjU1LnduSWhIUGRyOTJJVA$G1Tw628IlaIDze+cyUezns+M47q5js+zpWE1KIXZ53E', '2022-10-17'),
-(5, 'foef', 'eifj', 'epfij', 'jp.dasque@cegetel.net', '2000-05-18', '$argon2id$v=19$m=65536,t=4,p=1$Y0FhbTlURFJnUEdsandVRA$e9kv45ur444aXCS8s39saRppHRKUy8zgiuNZ8PD6B7E', '2022-10-18');
+INSERT INTO `user` (`iduser`, `f_name`, `name`, `birthdate`) VALUES
+(1, 'j', 'j', '2003-11-18'),
+(4, 'z', 'z', '2003-11-18'),
+(5, 'eifj', 'epfij', '2000-05-18'),
+(7, 'd', 'd', '2003-11-18'),
+(10, 'ee', 'ee', '2003-11-18'),
+(11, 'admin', 'admin', '2003-11-18');
 
 --
 -- Index pour les tables déchargées
@@ -153,7 +161,13 @@ INSERT INTO `user` (`iduser`, `username`, `f_name`, `name`, `email`, `birthdate`
 -- Index pour la table `beerinfo`
 --
 ALTER TABLE `beerinfo`
-  ADD PRIMARY KEY (`Id`);
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `follow`
+--
+ALTER TABLE `follow`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Index pour la table `logins`
@@ -181,19 +195,25 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT pour la table `beerinfo`
 --
 ALTER TABLE `beerinfo`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT pour la table `follow`
+--
+ALTER TABLE `follow`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `logins`
 --
 ALTER TABLE `logins`
-  MODIFY `idlogins` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idlogins` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT pour la table `user`
 --
 ALTER TABLE `user`
-  MODIFY `iduser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `iduser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
