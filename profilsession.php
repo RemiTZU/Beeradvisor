@@ -116,9 +116,6 @@
 
     <?php
 
-    include 'connect.php';
-    global $db;
-
     if (!empty($_POST)) {
 
         if (!empty($_POST["newusername"]) && !empty($_POST["newemail"]) && !empty($_POST["newpassword"])) {
