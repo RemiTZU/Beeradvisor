@@ -24,25 +24,34 @@
     
 // verification du follow
 
-    $query = $db->prepare("SELECT * FROM follow WHERE idlogins=?");
+    $query = $db->prepare("SELECT * FROM follow WHERE iduserfollow=?");
     $res = $query->execute([$iduserprofil]);
     $data = $query->fetch();
+    $bool = false;
     while ($data != NULL) {
-        if (da) {
-            # code...
+        if ($data['idfollower'] == $_SESSION['logins']['idlogins']) {
+            $bool = True;
         }
         $data = $query->fetch();
     }
-    while ($comments != null) {
-        echo "biere : " . $comments['name'];
-        echo" ";
-        echo "Commentaire : " . $comments['description'];
-        echo"<br>";
-        $comments = $query->fetch();
+    if($bool){
+        while ($comments != null) {
+            echo "biere : " . $comments['name'];
+            echo" ";
+            echo "Commentaire : " . $comments['description'];
+            echo"<br>";
+            $comments = $query->fetch();
+        }
+
+        echo "<a href='unfollow.php?id=$iduserprofil'>unfollow</a>";
+    }else{
+
+        echo "<a href='follow.php?id=$iduserprofil'>follow</a>";
     }
 
-    echo "<a href='follow.php?id=$iduserprofil'>follow</a>";
-    echo "<a href='unfollow.php?id=$iduserprofil'>follow</a>";
+
+    
+    
     ?>
     
 </body>

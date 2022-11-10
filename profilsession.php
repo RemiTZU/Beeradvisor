@@ -109,7 +109,7 @@
             }
 
             $pass = password_hash($_POST["newpassword"], PASSWORD_ARGON2ID);
-
+            $bool = True;
             echo "hello";
             if ($bool) {
                 $sql = "UPDATE logins 
@@ -124,7 +124,7 @@
 
                 // on redirige vers une page deco
 
-
+                header("Location: index.php");
             } else {
                 echo "probleme dans ce que tu as rentrés";
             }

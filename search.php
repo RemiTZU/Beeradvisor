@@ -138,5 +138,6 @@ global $db;
     }
 
     ?>
+    <a href="addbeer.php"><a>
 </body>
 </html>
