@@ -87,7 +87,7 @@
             } else {
                 $query = $db->prepare("SELECT * FROM logins WHERE email=?");
                 $query->execute([$email]);
-                $bool = $query->fetch();
+                $bool = $query->fetch(); 
                 if ($email == $_SESSION['logins']['email']) {
                     $verif = False;
                 }
@@ -111,7 +111,6 @@
             $pass = password_hash($_POST["newpassword"], PASSWORD_ARGON2ID);
 
             echo "hello";
-            $bool = True;
             if ($bool) {
                 $sql = "UPDATE logins 
                 SET username = ?,

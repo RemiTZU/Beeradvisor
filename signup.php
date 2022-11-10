@@ -122,11 +122,14 @@
                 // on connecte l'utilisateur
                 // demarrage d'une session php
 
+                $query = $db->prepare("SELECT * FROM logins WHERE email = ?");
+                $query->execute([$email]);
+                $user = $query->fetch();
 
                 session_start();
                 //stockage des données de l'utilisateur
 
-                $_SESSION["logins"] = ["email" => $email, "username" => $username, ""];
+                 $_SESSION["logins"] = ["email" => $user["email"], "username" => $user["username"], "idlogins" => $user['idlogins']];
 
                 // on redirige vers une page profil
                 header("Location: index.php");

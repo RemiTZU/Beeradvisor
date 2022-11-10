@@ -25,7 +25,7 @@
     $query = $db->prepare("SELECT avg(rating) AS rating FROM comment WHERE id_biere=?");
     $res = $query->execute([$data["Id"]]);
     $rating = $query->fetch();
-    echo "Note : " . $rating["rating"];
+    echo "Note moyenne : " . $rating["rating"];
 
     // Affiche les commentaires
     $query = $db->prepare("SELECT * FROM comment INNER JOIN logins ON logins.idlogins=comment.id_user WHERE id_biere=? ORDER BY date");
@@ -33,9 +33,14 @@
     $comments = $query->fetch();
 
     while($comments != null) {
-        echo "<br>Utilisateur : " . $comments['username'] . " - ";
+        $usernamecomment = $comments['username'];
+        $idusercomment = $comments['idlogins'];
+        echo"<br>";
+        echo "<a href='profil.php?id=$idusercomment'> Utilisateur : "  . $usernamecomment . "</a>";
         echo "Note : " . $comments['rating'] . " - ";
         echo "Commentaire : " . $comments['description'];
+        echo "id : " . $comments['idlogins'];
+        echo"<br>";
         $comments = $query->fetch();
     }
 
