@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,19 +23,16 @@
     
     // Affiche la note moyenne mise par les utilisateurs
     $query = $db->prepare("SELECT avg(rating) AS rating FROM comment WHERE id_biere=?");
-    $res = $query->execute([$data["id"]]);
+    $res = $query->execute([$data["Id"]]);
     $rating = $query->fetch();
     echo "Note : " . $rating["rating"];
 
     // Affiche les commentaires
-    $query = $db->prepare("SELECT * FROM comment INNER JOIN user ON logins.idlogins=comment.id_user WHERE id_biere=?");
-    $res = $query->execute([$data["id"]]);
+    $query = $db->prepare("SELECT * FROM comment INNER JOIN logins ON logins.idlogins=comment.id_user WHERE id_biere=? ORDER BY date");
+    $res = $query->execute([$data["Id"]]);
     $comments = $query->fetch();
 
     while($comments != null) {
-        // $username = $comments['username'];
-        // echo "<br>Utilisateur : " . $username . " - ";
-        // echo "<a href='profil.php?username=$username?id=$comments[id_user]'>" . $username .  " : </a>";
         echo "<br>Utilisateur : " . $comments['username'] . " - ";
         echo "Note : " . $comments['rating'] . " - ";
         echo "Commentaire : " . $comments['description'];
