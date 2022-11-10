@@ -60,7 +60,7 @@
                     session_start();
                     //stockage des données de l'utilisateur
 
-                    $_SESSION["logins"] = ["email" => $user["email"], "username" => $user["username"], "idlogins" => $user['idlogins']];
+                    $_SESSION["logins"] = ["email" => $user["email"], "username" => $user["username"], "idlogins" => $user['idlogins'],"adminstate" => $user['adminstate']];
 
                     // on redirige vers une page profil
                     header("Location: index.php");

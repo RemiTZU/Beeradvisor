@@ -132,6 +132,9 @@
             die("le formulaire n'est pas complet");
         }
     }
+    if ($_SESSION['logins']['adminstate']==1) {
+       echo" <a href='modifbeerdata.php'>modifier beerdata <a>";
+    }
 
     ?>
 
