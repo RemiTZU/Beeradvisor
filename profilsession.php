@@ -20,6 +20,53 @@
 
 
     ?>
+    
+
+    <form action="profilsession.php" method="POST">
+        <select name="order" id="order">
+            <option value="a_u_note" id='note_ascd'>note montante</option>
+            <option value="d_u_note" id='note_desc'>note descendante</option>
+            <option value="a_a_note" id='avg_note_ascd'>note moyenne montante</option>
+            <option value="d_a_note" id='avg_note_desc'>note moyenne descendante</option>
+        </select>
+        <input type="submit" value="valider">
+    </form>
+    <?php
+    include 'connect.php';
+    global $db;
+
+    // SELECT *, AVG(rating) from comment INNER JOIN beerinfo ON comment.id_biere = beerinfo.Id where id_user=1 GROUP BY beerinfo.name;
+    $var = $_SESSION['logins']['idlogins'];
+    $array = [$var];
+    $order = "";
+    if (isset($_POST['order'])) {
+        $order .= "ORDER BY ";
+        if ($_POST['order'][2] == 'u') {
+            $order .= "rating";
+        } else {
+            $order .= "(select avg(rating) from comment where id_user=?)";
+            $array = array_merge($array, [$var]);
+        }
+        if ($_POST['order'][0] == 'a') {
+            $order .= " DESC";
+        }
+    }
+    $req = "SELECT * FROM beerinfo INNER JOIN comment ON
+    beerinfo.Id = comment.id_biere WHERE comment.id_user=? " . $order;
+    echo $req . "<br>";
+    $query = $db->prepare($req);
+    $res = $query->execute($array);
+    $data = $query->fetch();
+    if ($data == null) {
+        echo "Vous n'avez pas encore commenté de bières";
+    }
+    while($data != null) {
+        $nom = $data['name'];
+        echo "<a href='biere.php?biere=$nom'>" . $nom . "</a> ";
+        echo $data['rating'] . "<br>";
+        $data = $query->fetch();
+    }
+    ?>
 
     <a href='deconnexion.php' class="a1">
         <span></span>
