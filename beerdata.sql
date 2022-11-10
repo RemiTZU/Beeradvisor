@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 07, 2022 at 06:19 PM
+-- Generation Time: Nov 10, 2022 at 05:04 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -106,6 +106,7 @@ INSERT INTO `beer_type` (`name`, `description`) VALUES
 --
 
 CREATE TABLE `comment` (
+  `id` int(11) NOT NULL,
   `id_biere` int(11) NOT NULL,
   `id_user` int(11) NOT NULL,
   `rating` int(11) NOT NULL,
@@ -118,13 +119,13 @@ CREATE TABLE `comment` (
 -- Dumping data for table `comment`
 --
 
-INSERT INTO `comment` (`id_biere`, `id_user`, `rating`, `picture`, `description`, `date`) VALUES
-(1, 1, 3, NULL, 'Très bon', '2022-11-06'),
-(2, 1, 2, NULL, 'Pas mal mais trop mousseuse', '2022-11-06'),
-(3, 1, 0, NULL, 'On dirait de la pisse', '2022-11-06'),
-(4, 1, 5, NULL, 'J\'ai bandé juste en l\'ouvrant', '2022-11-06'),
-(6, 1, 3, NULL, 'Je préfere le cidre', '2022-11-06'),
-(2, 3, 4, NULL, 'Une des meilleures', '2022-11-06');
+INSERT INTO `comment` (`id`, `id_biere`, `id_user`, `rating`, `picture`, `description`, `date`) VALUES
+(1, 1, 1, 3, NULL, 'Très bon', '2022-11-06'),
+(2, 2, 1, 2, NULL, 'Pas mal mais trop mousseuse', '2022-11-06'),
+(3, 3, 1, 0, NULL, 'On dirait de la pisse', '2022-11-06'),
+(4, 4, 1, 5, NULL, 'J\'ai bandé juste en l\'ouvrant', '2022-11-06'),
+(5, 6, 1, 3, NULL, 'Je préfere le cidre', '2022-11-06'),
+(6, 2, 3, 4, NULL, 'Une des meilleures', '2022-11-06');
 
 -- --------------------------------------------------------
 
@@ -140,8 +141,8 @@ CREATE TABLE `follow` (
 
 -- --------------------------------------------------------
 
-
--- Structure de la table `logins`
+--
+-- Table structure for table `logins`
 --
 
 CREATE TABLE `logins` (
@@ -156,33 +157,14 @@ CREATE TABLE `logins` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Déchargement des données de la table `logins`
+-- Dumping data for table `logins`
 --
 
 INSERT INTO `logins` (`idlogins`, `username`, `email`, `password`, `adminstate`, `birthdate`, `f_name`, `name`) VALUES
-(8, 'ee', 'remi.bonnet@utbm.fr', '$argon2id$v=19$m=65536,t=4,p=1$TnpqZ2ZDSEd0Q0N0d0Uvaw$Os7oTYjv+n2ZpmLht4UJyikV1QVGLea+Z/bqv1qWKk0', 0, '2003-11-18', 'Zop', 'Bong'),
-(9, 'admin', 'bonnetremi74@gmail.com', '$argon2id$v=19$m=65536,t=4,p=1$bU1wdFJWd09SVmpiQ3dPaQ$ZG0wX8rsgKGZzt0cPWwuXBhTdrChIk7yZbKjGSN56kE', 1, '2000-02-02', 'BONNET', 'Rémi');
+(1, 'ee', 'remi.bonnet@utbm.fr', '$argon2id$v=19$m=65536,t=4,p=1$TnpqZ2ZDSEd0Q0N0d0Uvaw$Os7oTYjv+n2ZpmLht4UJyikV1QVGLea+Z/bqv1qWKk0', 0, '2003-11-18', 'Zop', 'Bong'),
+(3, 'admin', 'bonnetremi74@gmail.com', '$argon2id$v=19$m=65536,t=4,p=1$bU1wdFJWd09SVmpiQ3dPaQ$ZG0wX8rsgKGZzt0cPWwuXBhTdrChIk7yZbKjGSN56kE', 1, '2000-02-02', 'BONNET', 'Rémi'),
+(4, 'tamtam', 'tom.kuntz@utbm.fr', '$argon2id$v=19$m=65536,t=4,p=1$LjczMXRUSzdxNU1GajdYRg$WD9nriJ5D4L5bWg3TgkhE2dM3e9t3R7iqAR2JFZ5lFA', 0, '2003-04-25', 'tom', 'kuntz');
 
---
--- Index pour les tables déchargées
---
-
---
--- Index pour la table `logins`
---
-
-
---
--- AUTO_INCREMENT pour les tables déchargées
---
-ALTER TABLE `logins`
-  ADD PRIMARY KEY (`idlogins`);
---
--- AUTO_INCREMENT pour la table `logins`
---
-ALTER TABLE `logins`
-  MODIFY `idlogins` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
-COMMIT;
 -- --------------------------------------------------------
 
 --
@@ -200,20 +182,17 @@ CREATE TABLE `taste` (
 --
 
 INSERT INTO `taste` (`id`, `name`, `description`) VALUES
-(9, 'Agrume', NULL),
-(7, 'Café', NULL),
 (1, 'Caramel', NULL),
-(6, 'Chocolat', NULL),
-(5, 'Clou de girofle', NULL),
-(3, 'Fruité', 'abondance de saveur de fruits'),
-(10, 'Fruits exotiques', NULL),
-(11, 'Myrtille', ''),
-(8, 'Noisette', NULL),
 (2, 'Pain d\'épice', 'Miel, cannelle, moelleux et parfumé'),
-(4, 'Vanille', NULL);
-
--- --------------------------------------------------------
-
+(3, 'Fruité', 'abondance de saveur de fruits'),
+(4, 'Vanille', NULL),
+(5, 'Clou de girofle', NULL),
+(6, 'Chocolat', NULL),
+(7, 'Café', NULL),
+(8, 'Noisette', NULL),
+(9, 'Agrume', NULL),
+(10, 'Fruits exotiques', NULL),
+(11, 'Myrtille', '');
 
 --
 -- Indexes for dumped tables
@@ -226,22 +205,28 @@ ALTER TABLE `beerinfo`
   ADD PRIMARY KEY (`Id`);
 
 --
--- Indexes for table `follow`
+-- Indexes for table `beer_type`
 --
-ALTER TABLE `follow`
+ALTER TABLE `beer_type`
+  ADD PRIMARY KEY (`name`);
+
+--
+-- Indexes for table `comment`
+--
+ALTER TABLE `comment`
   ADD PRIMARY KEY (`id`);
 
 --
-
+-- Indexes for table `logins`
+--
+ALTER TABLE `logins`
+  ADD PRIMARY KEY (`idlogins`);
 
 --
 -- Indexes for table `taste`
 --
 ALTER TABLE `taste`
-  ADD PRIMARY KEY (`name`);
-
---
---
+  ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -254,19 +239,17 @@ ALTER TABLE `beerinfo`
   MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
--- AUTO_INCREMENT for table `follow`
+-- AUTO_INCREMENT for table `comment`
 --
-ALTER TABLE `follow`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
--
---
-
+ALTER TABLE `comment`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
-
+-- AUTO_INCREMENT for table `logins`
 --
-
+ALTER TABLE `logins`
+  MODIFY `idlogins` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
