@@ -140,9 +140,6 @@ CREATE TABLE `follow` (
 
 -- --------------------------------------------------------
 
---
--- Table structure for table `logins`
---
 
 -- Structure de la table `logins`
 --
@@ -178,7 +175,8 @@ INSERT INTO `logins` (`idlogins`, `username`, `email`, `password`, `adminstate`,
 --
 -- AUTO_INCREMENT pour les tables déchargées
 --
-
+ALTER TABLE `logins`
+  ADD PRIMARY KEY (`idlogins`);
 --
 -- AUTO_INCREMENT pour la table `logins`
 --
@@ -245,9 +243,6 @@ ALTER TABLE `follow`
 
 --
 -- Indexes for table `logins`
---
-ALTER TABLE `logins`
-  ADD PRIMARY KEY (`idlogins`);
 
 --
 -- Indexes for table `taste`
