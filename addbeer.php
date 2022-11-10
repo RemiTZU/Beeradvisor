@@ -7,6 +7,17 @@
     <title>Document</title>
 </head>
 <body>
-    
+<form method="POST" action="addbeer.php">
+            <div class="user-box">
+                <input type="text" name="email" required="">
+                <label>E-mail</label>
+            </div>
+            <div class="user-box">
+                <input type="password" name="password" required="">
+                <label>Password</label>
+            </div>
+            <input type="submit" id="join-btn" name="join" alt="Join" value="Join">
+
+        </form>
 </body>
 </html>

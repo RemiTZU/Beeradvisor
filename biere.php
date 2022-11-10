@@ -61,9 +61,14 @@
     $comments = $query->fetch();
 
     while($comments != null) {
-        echo "<br>Utilisateur : " . $comments['username'] . " - ";
+        
+        $usernamecomment = $comments['username'];
+        $idusercomment = $comments['idlogins'];
+        echo"<br>";
+        echo "<a href='profil.php?id=$idusercomment'> Utilisateur : "  . $usernamecomment . "</a>";
         echo "Note : " . $comments['rating'] . " - ";
         echo "Commentaire : " . $comments['description'];
+        echo "id : " . $comments['idlogins'];
         $comments = $query->fetch();
     }
 

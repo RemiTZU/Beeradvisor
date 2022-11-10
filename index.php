@@ -35,7 +35,7 @@
             <h1>BEERADVISOR.</h1>
             <ul>
                 <li>Informez-vous sur une grande variété de bière</li>
-                <li>Bières testez par des experts</li>
+                <li>Bières testées par des experts</li>
             </ul>
             <h2>Bière du mois</h2>
             <div class="monthbeer">
