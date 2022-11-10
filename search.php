@@ -14,6 +14,7 @@ global $db;
 </head>
 <body>
     <h1>BeerAdvisor Search</h1>
+    <a href="https://www.pornhub.com/">Accueil</a>
     <div class="input-contol">
         <label for="search">
             <img src="D:\InfoCours\WEB\BeerAdvisor\search.jpg">
