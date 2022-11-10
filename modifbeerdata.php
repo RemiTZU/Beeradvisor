@@ -42,7 +42,7 @@
 
 <?php 
 $catedelete = $_POST["tastedelete"];
-$query = $db->prepare("DELETE FROM taste");
+$query = $db->prepare("DELETE FROM beer_type");
 $res = $query->execute();
 ?>
 <?php
