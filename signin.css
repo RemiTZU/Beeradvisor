@@ -155,6 +155,7 @@ html {
     background: linear-gradient(360deg, transparent, #03e9f4);
     animation: btn-anim4 1s linear infinite;
     animation-delay: .75s
+    
   }
   
   @keyframes btn-anim4 {
