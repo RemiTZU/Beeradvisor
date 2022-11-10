@@ -144,14 +144,47 @@ CREATE TABLE `follow` (
 -- Table structure for table `logins`
 --
 
+-- Structure de la table `logins`
+--
+
 CREATE TABLE `logins` (
   `idlogins` int(11) NOT NULL,
-  `username` varchar(100) NOT NULL,
-  `email` varchar(200) NOT NULL,
+  `username` text NOT NULL,
+  `email` text NOT NULL,
   `password` text NOT NULL,
-  `iduser` int(11) NOT NULL
+  `adminstate` tinyint(1) NOT NULL,
+  `birthdate` date DEFAULT NULL,
+  `f_name` text NOT NULL,
+  `name` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Déchargement des données de la table `logins`
+--
+
+INSERT INTO `logins` (`idlogins`, `username`, `email`, `password`, `adminstate`, `birthdate`, `f_name`, `name`) VALUES
+(8, 'ee', 'remi.bonnet@utbm.fr', '$argon2id$v=19$m=65536,t=4,p=1$TnpqZ2ZDSEd0Q0N0d0Uvaw$Os7oTYjv+n2ZpmLht4UJyikV1QVGLea+Z/bqv1qWKk0', 0, '2003-11-18', 'Zop', 'Bong'),
+(9, 'admin', 'bonnetremi74@gmail.com', '$argon2id$v=19$m=65536,t=4,p=1$bU1wdFJWd09SVmpiQ3dPaQ$ZG0wX8rsgKGZzt0cPWwuXBhTdrChIk7yZbKjGSN56kE', 1, '2000-02-02', 'BONNET', 'Rémi');
+
+--
+-- Index pour les tables déchargées
+--
+
+--
+-- Index pour la table `logins`
+--
+
+
+--
+-- AUTO_INCREMENT pour les tables déchargées
+--
+
+--
+-- AUTO_INCREMENT pour la table `logins`
+--
+ALTER TABLE `logins`
+  MODIFY `idlogins` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+COMMIT;
 -- --------------------------------------------------------
 
 --
@@ -187,24 +220,12 @@ INSERT INTO `taste` (`id`, `name`, `description`) VALUES
 -- Table structure for table `user`
 --
 
-CREATE TABLE `user` (
-  `iduser` int(11) NOT NULL,
-  `f_name` text NOT NULL,
-  `name` text NOT NULL,
-  `birthdate` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='table information utilisateur';
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`iduser`, `f_name`, `name`, `birthdate`) VALUES
-(1, 'j', 'j', '2003-11-18'),
-(4, 'z', 'z', '2003-11-18'),
-(5, 'eifj', 'epfij', '2000-05-18'),
-(7, 'd', 'd', '2003-11-18'),
-(10, 'ee', 'ee', '2003-11-18'),
-(11, 'admin', 'admin', '2003-11-18');
+
 
 --
 -- Indexes for dumped tables
@@ -235,10 +256,7 @@ ALTER TABLE `taste`
   ADD PRIMARY KEY (`name`);
 
 --
--- Indexes for table `user`
 --
-ALTER TABLE `user`
-  ADD PRIMARY KEY (`iduser`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -256,18 +274,14 @@ ALTER TABLE `beerinfo`
 ALTER TABLE `follow`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
+-
 --
--- AUTO_INCREMENT for table `logins`
---
-ALTER TABLE `logins`
-  MODIFY `idlogins` int(11) NOT NULL AUTO_INCREMENT;
+
 
 --
 -- AUTO_INCREMENT for table `user`
 --
-ALTER TABLE `user`
-  MODIFY `iduser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
-COMMIT;
+
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
