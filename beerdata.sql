@@ -214,16 +214,6 @@ INSERT INTO `taste` (`id`, `name`, `description`) VALUES
 
 -- --------------------------------------------------------
 
---
--- Table structure for table `user`
---
-
-
---
--- Dumping data for table `user`
---
-
-
 
 --
 -- Indexes for dumped tables
@@ -242,7 +232,7 @@ ALTER TABLE `follow`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `logins`
+
 
 --
 -- Indexes for table `taste`
@@ -274,7 +264,7 @@ ALTER TABLE `follow`
 
 
 --
--- AUTO_INCREMENT for table `user`
+
 --
 
 
