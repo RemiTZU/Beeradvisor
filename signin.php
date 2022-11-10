@@ -10,21 +10,21 @@
 </head>
 
 <body>
-<div class="login-box">
-  <h2>Login</h2>
-  <form method="POST" action="signin.php">
-    <div class="user-box">
-      <input type="text" name="email" required="">
-      <label>E-mail</label>
+    <div class="login-box">
+        <h2>Login</h2>
+        <form method="POST" action="signin.php">
+            <div class="user-box">
+                <input type="text" name="email" required="">
+                <label>E-mail</label>
+            </div>
+            <div class="user-box">
+                <input type="password" name="password" required="">
+                <label>Password</label>
+            </div>
+            <input type="submit" id="join-btn" name="join" alt="Join" value="Join">
+
+        </form>
     </div>
-    <div class="user-box">
-      <input type="password" name="password" required="">
-      <label>Password</label>
-    </div>
-    <input type="submit" id="join-btn" name="join" alt="Join" value="Join">
-    
-  </form>
-</div>
     <?php
     include 'connect.php';
     global $db;
@@ -67,7 +67,7 @@
                 }
             }
         } else {
-            echo("le formulaire n'est pas complet");
+            echo ("le formulaire n'est pas complet");
         }
     }
 

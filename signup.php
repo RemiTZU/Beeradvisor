@@ -53,12 +53,15 @@
         if (!empty($_POST["f_name"]) && !empty($_POST["name"]) && !empty($_POST["username"]) && !empty($_POST["email"]) && !empty($_POST["birthdate"]) && !empty($_POST["password"])) {
 
             $bool = True;
+            $bool2 = True;
+            $bool3 = True;
             $f_name = $email = $name = $birthdate = "";
             $f_name = $_POST["f_name"];
             $username = strip_tags($_POST["username"]);
             $name = $_POST["name"];
             $email = $_POST["email"];
             $birthdate = $_POST["birthdate"];
+
             if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 
                 echo ("l'adress email est pas bonne ");
@@ -66,23 +69,23 @@
             } else {
                 $query = $db->prepare("SELECT * FROM logins WHERE email=?");
                 $query->execute([$email]);
-                $bool = $query->fetch();
-                if ($bool) {
-                    $bool = False;
+                $bool2 = $query->fetch();
+                if ($bool2) {
+                    $bool2 = False;
                     echo ("le mail existe deja");
                 } else {
-                    $bool = True;
+                    $bool2 = True;
                 }
             }
 
             $query = $db->prepare("SELECT * FROM logins WHERE username=?");
             $query->execute([$username]);
-            $bool = $query->fetch();
-            if ($bool) {
-                $bool = False;
+            $bool3 = $query->fetch();
+            if ($bool3) {
+                $bool3 = False;
                 echo ("ce pseudo est deja utilisé existe deja");
             } else {
-                $bool = True;
+                $bool3 = True;
             }
 
             $pass = $_POST["password"];
@@ -95,37 +98,26 @@
 
             $pass = password_hash($_POST["password"], PASSWORD_ARGON2ID);
 
-            /*
-            if (!test_entry($f_name)) {
-                echo("entree de prénom incorrecte <br>");
-                $bool = False;
-            }
-
-            if (!test_entry($name)) {
-                echo("entree de nom incorrecte <br> ");
-                $bool = False;
-            }
-*/
             if (intval(date("Y")) - intval(substr($birthdate, 0, 4)) <= 18) {
                 echo ("L'âge minimale de registration est 18 ans");
                 $bool = False;
             }
 
 
-            if ($bool) {
+            if ($bool && $bool2 && $bool3) {
                 echo "ok";
                 //ajout dans la table user
-                $sql = "INSERT INTO user(f_name,name,birthdate) VALUES (?,?,?)";
-                $query = $db->prepare($sql);
-                $query->execute(array($f_name, $name, $birthdate));
+                // $sql = "INSERT INTO logins(f_name,name,birthdate) VALUES (?,?,?)";
+                // $query = $db->prepare($sql);
+                // $query->execute(array($f_name, $name, $birthdate));
 
                 //ajout dans la table logins
 
 
 
-                $sql = "INSERT INTO logins(username,email,password,adminstate) VALUES (?,?,?,?)";
+                $sql = "INSERT INTO logins(username,email,password,adminstate,birthdate,f_name,name) VALUES (?,?,?,?,?,?,?)";
                 $query = $db->prepare($sql);
-                $query->execute(array($username, $email, $pass, $adminstate));
+                $query->execute(array($username, $email, $pass, $adminstate,$birthdate,$f_name, $name));
                 // les verfications sont passées 
                 // on connecte l'utilisateur
                 // demarrage d'une session php

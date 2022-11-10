@@ -7,10 +7,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="profilsession.js"></script>
+    <link rel="stylesheet" href="profil.css" />
 </head>
 
 <body>
-
+    <h1>Profil</h1>
     <?php
     echo "<p>profil de " . $_SESSION['logins']['username'] . " </p>";
 
@@ -19,16 +21,51 @@
 
     ?>
 
-    <a href='deconnexion.php'>deconnexion</a>
+    <a href='deconnexion.php' class="a1">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>deconnexion</a>
 
-    <form action="profilsession.php" method="POST" name="modification" id="form">
+    <a onclick="maFonction()" class="a2" href="#"> 
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        Modifier
+    </a>
+    <div id="maDIV" style="display:none;">
+        <div class="login-box">
 
-        username : <input type="text" name="newusername" id="username" placeholder="new name"><br>
-        Information personnelles : <br>
-        mail adress : <input type="text" name="newemail" id="email" placeholder="new email"><br>
-        password : <input type="password" name="newpassword" id="password" placeholder="new password"><br>
-        <input type="submit" value="Valider">
-    </form>
+            <form action="profilsession.php" method="POST" name="modification" id="form">
+                <div class="user-box">
+                    <input type="text" name="newusername" id="username" required="">
+                    <label>Username</label>
+                </div>
+                <div class="user-box">
+                    <input type="text" name="newemail" id="email" required="">
+                    <label>E-mail</label>
+                </div>
+                <div class="user-box">
+                    <input type="password" name="newpassword" id="password" required="">
+                    <label>Password</label>
+                </div>
+                <input type="submit" id="join-btn" name="join" alt="Join" value="Join">
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function maFonction() {
+            var div = document.getElementById("maDIV");
+            if (div.style.display === "none") {
+                div.style.display = "block";
+            } else {
+                div.style.display = "none";
+            }
+        }
+    </script>
+
 
     <?php
 
@@ -73,7 +110,7 @@
 
             $pass = password_hash($_POST["newpassword"], PASSWORD_ARGON2ID);
 
-            echo"hello";
+            echo "hello";
             $bool = True;
             if ($bool) {
                 $sql = "UPDATE logins 
@@ -82,17 +119,16 @@
                 password = ?
                 where email = ? ";
                 $query = $db->prepare($sql);
-                $query->execute(array($username, $email, $pass, $_SESSION['logins']['email'] ));
+                $query->execute(array($username, $email, $pass, $_SESSION['logins']['email']));
 
 
 
                 // on redirige vers une page deco
 
-                
+
             } else {
                 echo "probleme dans ce que tu as rentrés";
             }
-            
         } else {
             die("le formulaire n'est pas complet");
         }

@@ -50,7 +50,7 @@
     <section class="sitenavigation">
         <h2>FIND OUT</h2>
         <div class="grid">
-            <div class="search"> <a>Beer Searching</a> </div>
+            <div class="search"> <a href="search.php">Beer Searching</a> </div>
             <div class="history"><a href="https://www.heineken.com/fr/fr/history">Heineken's history</a></div>
             <div class="connection"><a>Sign in / Connection</a></div>
         </div>
