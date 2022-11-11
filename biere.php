@@ -26,7 +26,7 @@
     $query = $db->prepare("SELECT avg(rating) AS rating FROM comment WHERE id_biere=?");
     $res = $query->execute([$data["Id"]]);
     $rating = $query->fetch();
-    echo "Note moyenne : " . $rating["rating"];
+    echo "Note moyenne : " . $rating["rating"] . "<br>";
     
     // Si utilisateur connecté : il peut mettre un commentaire
     if (isset($_SESSION["logins"])) {
@@ -42,7 +42,8 @@
 
         if ($comment_user!=NULL) {
             echo "Votre commentaire : <br> Note : " . $comment_user['rating'] . " - ";
-            echo "Commentaire : " . $comment_user['description'] . '<br><br>';
+            echo "Commentaire : " . $comment_user['description'] . '<br>';
+            echo '<a href="del_com.php?id_beer=' . $data["Id"] . '&biere=' . $data['name'] . '">DELETE</a><br><br>';
         } else {
             echo '
             Ajouter un commentaire : <br>

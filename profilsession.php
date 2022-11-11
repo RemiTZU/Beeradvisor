@@ -21,6 +21,7 @@
 
     ?>
     
+    <a href="add_beer.php">Add a beer</a>
 
     <form action="profilsession.php" method="POST">
         <select name="order" id="order">
