@@ -45,8 +45,11 @@
 
         echo "<a href='unfollow.php?id=$iduserprofil'>unfollow</a>";
     }else{
-
-        echo "<a href='follow.php?id=$iduserprofil'>follow</a>";
+        if (isset($_SESSION['logins'])) {
+            echo "<a href='follow.php?id=$iduserprofil'>follow</a>";
+        } else {
+            echo '<a href="signin_signup.php">Connectez-vous pour suivre un utilisateur</a>';
+        }
     }
 
 
