@@ -1,4 +1,5 @@
-<?php session_start(); 
+
+            <h3 id="search_label">search beer</h3><?php session_start(); 
 global $db;
 ?>
 <!DOCTYPE html>
