@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="style1.css" />
     <title>Document</title>
 </head>
 
@@ -45,17 +45,14 @@
         </section>
 
     </header>
-    <p>hello</p>
-    <section class="sitenavigation">
-        <h2>FIND OUT</h2>
-        <div>
-            <div class="search"> <img src="IMG/searchlink1.jpg"> </div>
-            <div>
-                <div class="history"><a href="https://www.heineken.com/fr/fr/history">Heineken's history</a></div>
-                <div class="connection"><a>Sign in / Connection</a></div>
-            </div>
-        </div>
-    </section>
+
+    
+    <div id="presentation">
+        <a href="search.php" id="link_search">
+            <img id="img_search" src="IMG/searchlink1.jpg">
+            <h2 id="search_label">search beer</h2>
+        </a>
+    </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/gsap.min.js"></script>
     <script src="app.js"></script>
 

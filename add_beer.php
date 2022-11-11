@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add beer</title>
 </head>
+
 <body style="background : #333">
     <form action="add_beer.php" method="post">
         Name of the beer : <input type="text" name="name_beer" id="name_beer" maxlength="100"> <br>
@@ -17,7 +19,7 @@
             $query = $db->prepare("SELECT name FROM beer_type");
             $res = $query->execute();
             $data = $query->fetch();
-            while($data != null) {
+            while ($data != null) {
                 echo "<option value='" . $data['name'] . "'>" . $data['name'] . "</option>";
                 $data = $query->fetch();
             }
@@ -27,18 +29,18 @@
         <select name="taste" id="taste" onchange="taste_select()">
             <option value="reset">Reset</option>
             <?php
-            
+
             include 'connect.php';
             $query = $db->prepare("SELECT name FROM taste");
             $res = $query->execute();
             $data = $query->fetch();
-            while($data != null) {
+            while ($data != null) {
                 echo "<option value='" . $data['name'] . "'>" . $data['name'] . "</option>";
                 $data = $query->fetch();
             }
             ?>
         </select>
-        -> 
+        ->
         <input type="text" name="taste_txt" id="taste_txt" readonly> <br>
         <script>
             function taste_select() {
@@ -56,13 +58,13 @@
     </form>
     <?php
     if (isset($_POST)) {
-        if ($_POST["name_beer"]) {
+        if (isset($_POST["name_beer"])) {
             $query = $db->prepare("SELECT * FROM beerinfo WHERE name=?");
             $res = $query->execute([$_POST["name_beer"]]);
             $data = $query->fetch();
             if ($data == NULL) {
                 $query = $db->prepare("INSERT INTO beerinfo(name,degree,type,IBU) VALUES (?,?,?,?)");
-                $res = $query->execute(array($_POST["name_beer"],$_POST["degree"],$_POST["type"],$_POST["IBU"]));
+                $res = $query->execute(array($_POST["name_beer"], $_POST["degree"], $_POST["type"], $_POST["IBU"]));
                 $query = $db->prepare("SELECT Id FROM beerinfo WHERE name=?");
                 $res = $query->execute([$_POST["name_beer"]]);
                 $biere = $query->fetch();
@@ -73,13 +75,13 @@
                     $res = $query->execute([$list_taste[$i]]);
                     $data = $query->fetch();
                     $query = $db->prepare("INSERT INTO beer_taste(id_beer,id_taste) VALUES (?,?)");
-                    $res = $query->execute(array($biere["Id"],$data["id"]));
-                    $i ++;
+                    $res = $query->execute(array($biere["Id"], $data["id"]));
+                    $i++;
                 }
-
             }
         }
     }
     ?>
 </body>
+
 </html>

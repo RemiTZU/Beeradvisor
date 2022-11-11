@@ -1,11 +1,8 @@
 body {
     margin: 0;
-    overflow-x: hidden;
-    color: black;
 }
 
 header {
-    width: 100%;
     height: 1000px;
 }
 
@@ -64,7 +61,6 @@ header li {
 
 .monthbeer {
     position: absolute;
-    top: 0em;
     right: 10%;
     align-items: center;
 }
@@ -107,24 +103,14 @@ svg {
     bottom: 0;
 }
 
-.sitenavigation {
-    top: 1500px;
-    justify-content: center;
-    position: absolute;
-    background-repeat: no-repeat;
-    left: 25%;
-    height: 825px;
-    width: 1227px;
+#presentation {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 }
 
-.sitenavigation h2 {
+#link_search {
     position: relative;
-    left: 0;
-    color: #041e32;
-    font-family: Brandon Text, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen-Sans, Ubuntu, Cantarell, Helvetica Neue, sans-serif;
-    font-size: 2em;
-    font-style: bold;
-    margin-top: 0;
 }
 
 .history {

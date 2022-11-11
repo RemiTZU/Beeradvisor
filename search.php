@@ -139,6 +139,6 @@ global $db;
     }
 
     ?>
-    <a href="addbeer.php">ajouez des bieres<a>
+    
 </body>
 </html>
