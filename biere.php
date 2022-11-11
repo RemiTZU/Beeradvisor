@@ -72,10 +72,12 @@
         echo "id : " . $comments['idlogins'];
         $comments = $query->fetch();
     }
-$adminstate = $_SESSION['logins']['adminstate'];
-if ($adminstate == 1) {
-    echo"<a href='supbiere.php?name=$biere'>supprimer</a>";
-}
+    if (isset($_SESSION['logins'])) {
+        $adminstate = $_SESSION['logins']['adminstate'];
+        if ($adminstate == 1) {
+            echo"<a href='supbiere.php?name=$biere'>supprimer</a>";
+        }
+    }
     ?>
 
 </body>
