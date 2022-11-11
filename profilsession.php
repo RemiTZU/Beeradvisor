@@ -116,49 +116,61 @@
 
     <?php
 
-    include 'connect.php';
-    global $db;
 
     if (!empty($_POST)) {
 
         if (!empty($_POST["newusername"]) && !empty($_POST["newemail"]) && !empty($_POST["newpassword"])) {
 
             $bool = True;
-            $verif = True;
+            $verif1 = True;
+            $verif2 = True;
             $username = strip_tags($_POST["newusername"]);
             $email = $_POST["newemail"];
+
+// verification email**
 
             if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 
                 $bool = False;
             } else {
+                echo"emailok";
                 $query = $db->prepare("SELECT * FROM logins WHERE email=?");
-                $query->execute([$email]);
-                $bool = $query->fetch(); 
-                if ($email == $_SESSION['logins']['email']) {
-                    $verif = False;
+                $query->execute(array($email));
+                $data1 = $query->fetch(); 
+                if ($data1) {
+                    echo"appartient base de donnée";
+                    $verif1 = False;
+
+                    if ($email == $_SESSION['logins']['email']) {
+                        $verif1 = True;
+                    }
                 }
-                if ($bool && $verif) {
-                    $bool = False;
-                    die("le mail existe deja");
+
+// verification username**
+
+                $query = $db->prepare("SELECT * FROM logins WHERE username=?");
+                $query->execute(array($username));
+                $data2 = $query->fetch(); 
+                if ($data2) {
+                    $verif2 = False;
+                    if ($username == $_SESSION['logins']['username']) {
+                        $verif2 = True;
+                    }
                 }
+
+                $pass = password_hash($_POST["newpassword"], PASSWORD_ARGON2ID);
             }
 
-            $query = $db->prepare("SELECT * FROM logins WHERE username=?");
-            $query->execute([$username]);
-            $bool = $query->fetch();
-            if ($username == $_SESSION['logins']['username']) {
-                $verif = False;
-            }
-            if ($bool && $verif) {
-                $bool = False;
-                die("ce pseudo est deja utilisé existe deja");
-            }
-
-            $pass = password_hash($_POST["newpassword"], PASSWORD_ARGON2ID);
-            $bool = True;
-            echo "hello";
-            if ($bool) {
+            echo"bool : ";
+            echo"$bool";
+            echo"verif1 : ";
+            echo"$verif1";
+            echo"verif2 : ";
+            echo"$verif2";
+         
+            
+            if ($bool && $verif1 && $verif2) {
+                echo "OK";
                 $sql = "UPDATE logins 
                 SET username = ?,
                 email = ?,

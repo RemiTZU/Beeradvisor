@@ -10,51 +10,89 @@
 
 <body>
     <a href=#>Create Category</a>
-<form action="modifbeerdata.php" method="$_POST">   
-<select name="tastedelete" id="tastedelete" onchange="taste_select()">
-<option value="reset">DELETE</option>
-    <?php
-    include 'connect.php';
-    $query = $db->prepare("SELECT name FROM taste");
-    $res = $query->execute();
-    $data = $query->fetch();
-    while ($data != null) {
-        echo "<option value='" . $data['name'] . "'>" . $data['name'] . "</option>";
-        $data = $query->fetch();
-    }
-    ?>
-</select>
+    <form action="modifbeerdata.php" method="POST">
+        <select name="typedelete" id="typedelete">
+            <option value="reset">DELETE</option>
+            <?php
+            include 'connect.php';
+            global $db;
+            $query = $db->prepare("SELECT name FROM beer_type");
+            $res = $query->execute();
+            $data = $query->fetch();
+            while ($data != null) {
+                echo "<option value='" . $data['name'] . "'>" . $data['name'] . "</option>";
+                $data = $query->fetch();
+            }
+            ?>
+        </select>
 
-<select name="tastedit" id="tastedit" onchange="taste_select()">
-<option value="reset">EDIT</option>
+        <select name="typedit" id="typedit">
+        
+            <option value="reset">EDIT</option>
+            <?php
+            include 'connect.php';
+            $query = $db->prepare("SELECT name FROM beer_type");
+            $res = $query->execute();
+            $data = $query->fetch();
+            while ($data != null) {
+                echo "<option value='" . $data['name'] . "'>" . $data['name'] . "</option>";
+                $data = $query->fetch();
+            }
+            ?>
+        </select>
+        <input type = 'texte' name='editcategory'>
+        <input type="submit" value="modifier">
+    </form>
+
+
     <?php
-    include 'connect.php';
-    $query = $db->prepare("SELECT name FROM taste");
-    $res = $query->execute();
-    $data = $query->fetch();
-    while ($data != null) {
-        echo "<option value='" . $data['name'] . "'>" . $data['name'] . "</option>";
-        $data = $query->fetch();
+    if (!empty($_POST)) {
+        if (!empty($_POST["typedelete"])) {
+
+            if ($_POST["typedelete"] != "DELETE") {
+                $catedelete = $_POST["typedelete"];
+                $query = $db->prepare("DELETE FROM beer_type WHERE name = ?");
+                $res = $query->execute([$catedelete]);
+            }
+
+        }
+        if (!empty($_POST["typedit"])) {
+
+            if ($_POST["typedit"] != "EDIT") {
+
+                $newdescription = $_POST["editcategory"];
+                $query = $db->prepare("UPDATE beer_type SET description = ? WHERE name = ?");
+                $res = $query->execute(array($newdescription, $_POST["typedit"]));
+            }
+
+        }
     }
+
+
     ?>
-</select>
+<div class="create">
+  <form action="modifbeerdata.php" method="POST">
+<input type = "texte" name="newcategory">
+<input type = "texte" name="description">
+<input type="submit">
 </form>
-
-<?php 
-$catedelete = $_POST["tastedelete"];
-$query = $db->prepare("DELETE FROM beer_type");
-$res = $query->execute();
-?>
+</div>
 <?php
-echo "<form action='modifbeerdata.php' method='POST'>
-<input type = 'texte' name='newcategory'>
-<input type='submit'>
-</form>"
+    if (!empty($_POST)) {
+        if (!empty($_POST["newcategory"])) {
+
+           
+                $newcategory= $_POST["newcategory"];
+                $description = $_POST["description"];
+                $query = $db->prepare("INSERT INTO beer_type(name,description) VALUES(?,?)");
+                $res = $query->execute(array($newcategory,$description));
+
+        }
+    }
 ?>
+
+
+
 </body>
 
 </html>
-
-
-
-
